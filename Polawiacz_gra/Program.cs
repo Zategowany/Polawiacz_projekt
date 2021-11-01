@@ -9,6 +9,11 @@ namespace Polawiacz_gra
         {
             using (var game = new Game1())
                 game.Run();
+            for(int i = 0; i<5; i++)
+            {
+                int x = 0;
+                x++;
+            }
         }
     }
 }
