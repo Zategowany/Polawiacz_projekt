@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace Polawiacz_gra
 {
@@ -17,10 +18,19 @@ namespace Polawiacz_gra
 
         SpriteFont gameFont;
 
-        
 
-        Vector2 targetPosition = new Vector2(0,0);
-        Vector2 targetPosition2 = new Vector2(0, 0);
+        public Vector2 targetPosition = new Vector2(0, 0);
+        public Vector2 targetPosition2 = new Vector2(0, 0);
+        public Vector2 targetPosition3 = new Vector2(0, 0);
+        public Vector2 targetPosition4 = new Vector2(0, 0);
+        public Vector2 targetPosition5 = new Vector2(0, 0);
+        public Vector2 targetPosition6 = new Vector2(0, 0);
+        public Vector2 targetPosition7 = new Vector2(0, 0);
+        public Vector2 targetPosition8 = new Vector2(0, 0);
+        public Vector2 targetPosition9 = new Vector2(0, 0);
+        public Vector2 targetPosition10 = new Vector2(0, 0);
+
+
 
         const int targetRadius = 45;
         const int promienKursora = 25;
@@ -30,6 +40,10 @@ namespace Polawiacz_gra
         bool mReleased = true;
         int trash = 10;
         double timer = 0;
+        int[] numercelu = new int[10];
+
+        float wynik;
+
 
         public Game1()
         {
@@ -55,9 +69,9 @@ namespace Polawiacz_gra
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //ladowanie obrazkow
-            targetSprite = Content.Load<Texture2D>("target");
+            targetSprite = Content.Load<Texture2D>("target2");
             crosshairsSprite = Content.Load<Texture2D>("crosshairs");
-            backgroundSprite = Content.Load<Texture2D>("sky");
+            backgroundSprite = Content.Load<Texture2D>("tlo");
             gameFont = Content.Load<SpriteFont>("galleryFont");
             
         }
@@ -66,6 +80,15 @@ namespace Polawiacz_gra
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            if (timer == 0)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    numercelu[i] = 1;
+                }
+            }
+            
 
             //czas zliczany do 10 pkt
             if(trash > 0)
@@ -85,10 +108,31 @@ namespace Polawiacz_gra
             if (timer == 0)
             {
                 Random rand = new Random();
+
+                
+
+                //losowanie pozycji w okienku gry (trzeba zrobic z tego liste lub klase)
                 targetPosition.X = rand.Next(45, _graphics.PreferredBackBufferWidth - targetRadius);
                 targetPosition.Y = rand.Next(45, _graphics.PreferredBackBufferHeight - targetRadius);
                 targetPosition2.X = rand.Next(45, _graphics.PreferredBackBufferWidth - targetRadius);
                 targetPosition2.Y = rand.Next(45, _graphics.PreferredBackBufferHeight - targetRadius);
+                targetPosition3.X = rand.Next(45, _graphics.PreferredBackBufferWidth - targetRadius);
+                targetPosition3.Y = rand.Next(45, _graphics.PreferredBackBufferHeight - targetRadius);
+                targetPosition4.X = rand.Next(45, _graphics.PreferredBackBufferWidth - targetRadius);
+                targetPosition4.Y = rand.Next(45, _graphics.PreferredBackBufferHeight - targetRadius);
+                targetPosition5.X = rand.Next(45, _graphics.PreferredBackBufferWidth - targetRadius);
+                targetPosition5.Y = rand.Next(45, _graphics.PreferredBackBufferHeight - targetRadius);
+                targetPosition6.X = rand.Next(45, _graphics.PreferredBackBufferWidth - targetRadius);
+                targetPosition6.Y = rand.Next(45, _graphics.PreferredBackBufferHeight - targetRadius);
+                targetPosition7.X = rand.Next(45, _graphics.PreferredBackBufferWidth - targetRadius);
+                targetPosition7.Y = rand.Next(45, _graphics.PreferredBackBufferHeight - targetRadius);
+                targetPosition8.X = rand.Next(45, _graphics.PreferredBackBufferWidth - targetRadius);
+                targetPosition8.Y = rand.Next(45, _graphics.PreferredBackBufferHeight - targetRadius);
+                targetPosition9.X = rand.Next(45, _graphics.PreferredBackBufferWidth - targetRadius);
+                targetPosition9.Y = rand.Next(45, _graphics.PreferredBackBufferHeight - targetRadius);
+                targetPosition10.X = rand.Next(45, _graphics.PreferredBackBufferWidth - targetRadius);
+                targetPosition10.Y = rand.Next(45, _graphics.PreferredBackBufferHeight - targetRadius);
+                
             }
 
             if (mState.LeftButton == ButtonState.Pressed && mReleased == true)
@@ -97,20 +141,72 @@ namespace Polawiacz_gra
                 if(mouseTargetDist < targetRadius && trash > 0)
                 {
                     trash--;
+                    numercelu[0] = 0;
 
-                    Random rand = new Random();
-                    targetPosition.X = rand.Next(45, _graphics.PreferredBackBufferWidth - targetRadius );
-                    targetPosition.Y = rand.Next(45, _graphics.PreferredBackBufferHeight - targetRadius);
+                    // Random rand = new Random();
+                    // targetPosition.X = rand.Next(45, _graphics.PreferredBackBufferWidth - targetRadius );
+                    // targetPosition.Y = rand.Next(45, _graphics.PreferredBackBufferHeight - targetRadius);
                 }
-                float mouseTargetDist2 = Vector2.Distance(targetPosition2, mState.Position.ToVector2()); //pozycja myszki czy jerst mniejsza od promienia celu
+                
+                float mouseTargetDist2 = Vector2.Distance(targetPosition2, mState.Position.ToVector2()); 
                 if (mouseTargetDist2 < targetRadius && trash > 0)
                 {
                     trash--;
+                    numercelu[1] = 0;
 
-                    Random rand = new Random();
-                    targetPosition2.X = rand.Next(45, _graphics.PreferredBackBufferWidth - targetRadius);
-                    targetPosition2.Y = rand.Next(45, _graphics.PreferredBackBufferHeight - targetRadius);
+                    // Random rand = new Random();
+                    // targetPosition2.X = rand.Next(45, _graphics.PreferredBackBufferWidth - targetRadius);
+                    // targetPosition2.Y = rand.Next(45, _graphics.PreferredBackBufferHeight - targetRadius);
                 }
+                float mouseTargetDist3 = Vector2.Distance(targetPosition3, mState.Position.ToVector2()); 
+                if (mouseTargetDist3 < targetRadius && trash > 0)
+                {
+                    trash--;
+                    numercelu[2] = 0;
+                }
+                float mouseTargetDist4 = Vector2.Distance(targetPosition4, mState.Position.ToVector2()); 
+                if (mouseTargetDist4 < targetRadius && trash > 0)
+                {
+                    trash--;
+                    numercelu[3] = 0;
+                }
+                float mouseTargetDist5 = Vector2.Distance(targetPosition5, mState.Position.ToVector2()); 
+                if (mouseTargetDist5 < targetRadius && trash > 0)
+                {
+                    trash--;
+                    numercelu[4] = 0;
+                }
+                float mouseTargetDist6 = Vector2.Distance(targetPosition6, mState.Position.ToVector2()); 
+                if (mouseTargetDist6 < targetRadius && trash > 0)
+                {
+                    trash--;
+                    numercelu[5] = 0;
+                }
+                float mouseTargetDist7 = Vector2.Distance(targetPosition7, mState.Position.ToVector2()); 
+                if (mouseTargetDist7 < targetRadius && trash > 0)
+                {
+                    trash--;
+                    numercelu[6] = 0;
+                }
+                float mouseTargetDist8 = Vector2.Distance(targetPosition8, mState.Position.ToVector2()); 
+                if (mouseTargetDist8 < targetRadius && trash > 0)
+                {
+                    trash--;
+                    numercelu[7] = 0;
+                }
+                float mouseTargetDist9 = Vector2.Distance(targetPosition9, mState.Position.ToVector2()); 
+                if (mouseTargetDist9 < targetRadius && trash > 0)
+                {
+                    trash--;
+                    numercelu[8] = 0;
+                }
+                float mouseTargetDist10 = Vector2.Distance(targetPosition10, mState.Position.ToVector2()); 
+                if (mouseTargetDist10 < targetRadius && trash > 0)
+                {
+                    trash--;
+                    numercelu[9] = 0;
+                }
+                
                 mReleased = false;
             }
             if (mState.LeftButton == ButtonState.Released)
@@ -118,6 +214,11 @@ namespace Polawiacz_gra
                 mReleased = true;
             }
             // TODO: Add your update logic here
+            if (trash == 0)
+            {
+                
+                wynik = (float)(1000/timer);
+            }
 
             base.Update(gameTime);
         }
@@ -129,14 +230,48 @@ namespace Polawiacz_gra
             _spriteBatch.Begin();
             _spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), Color.White);
             //jesli score jest 10 nie generuje
-            if(trash > 0)
+            if(numercelu[0] == 1)
             {
                 _spriteBatch.Draw(targetSprite, new Vector2(targetPosition.X - targetRadius, targetPosition.Y - targetRadius), Color.White);
             }
-            if (trash > 0)
+            
+            if (numercelu[1] == 1)
             {
                 _spriteBatch.Draw(targetSprite, new Vector2(targetPosition2.X - targetRadius, targetPosition2.Y - targetRadius), Color.White);
             }
+            if (numercelu[2] == 1)
+            {
+                _spriteBatch.Draw(targetSprite, new Vector2(targetPosition3.X - targetRadius, targetPosition3.Y - targetRadius), Color.White);
+            }
+            if (numercelu[3] == 1)
+            {
+                _spriteBatch.Draw(targetSprite, new Vector2(targetPosition4.X - targetRadius, targetPosition4.Y - targetRadius), Color.White);
+            }
+            if (numercelu[4] == 1)
+            {
+                _spriteBatch.Draw(targetSprite, new Vector2(targetPosition5.X - targetRadius, targetPosition5.Y - targetRadius), Color.White);
+            }
+            if (numercelu[5] == 1)
+            {
+                _spriteBatch.Draw(targetSprite, new Vector2(targetPosition6.X - targetRadius, targetPosition6.Y - targetRadius), Color.White);
+            }
+            if (numercelu[6] == 1)
+            {
+                _spriteBatch.Draw(targetSprite, new Vector2(targetPosition7.X - targetRadius, targetPosition7.Y - targetRadius), Color.White);
+            }
+            if (numercelu[7] == 1)
+            {
+                _spriteBatch.Draw(targetSprite, new Vector2(targetPosition8.X - targetRadius, targetPosition8.Y - targetRadius), Color.White);
+            }
+            if (numercelu[8] == 1)
+            {
+                _spriteBatch.Draw(targetSprite, new Vector2(targetPosition9.X - targetRadius, targetPosition9.Y - targetRadius), Color.White);
+            }
+            if (numercelu[9] == 1)
+            {
+                _spriteBatch.Draw(targetSprite, new Vector2(targetPosition10.X - targetRadius, targetPosition10.Y - targetRadius), Color.White);
+            }
+            
 
             //gafika kursora
             _spriteBatch.Draw(crosshairsSprite, new Vector2(pozycjaKursora.X - promienKursora, pozycjaKursora.Y - promienKursora), Color.White);
@@ -144,6 +279,12 @@ namespace Polawiacz_gra
             _spriteBatch.DrawString(gameFont, "Czas: "+  Math.Ceiling(timer).ToString(), new Vector2(0, 30), Color.Red);
             //wynik
             _spriteBatch.DrawString(gameFont,"Pozostale smieci: " +trash.ToString(), new Vector2(0, 0), Color.White);
+            //Zebranie wszystkiego
+            if (trash == 0)
+            {
+                _spriteBatch.DrawString(gameFont, "Zebrales wszystko!!!! Twoj wynik to: " + wynik.ToString(), new Vector2(400, 450), Color.White);
+            }
+            
             _spriteBatch.End();
 
 

@@ -32,7 +32,7 @@
 /processorParam:TextureFormat=Compressed
 /build:galleryFont.spritefont
 
-#begin sky.png
+#begin target2.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -42,9 +42,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:sky.png
+/build:target2.png
 
-#begin target.png
+#begin tlo.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -54,5 +54,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:target.png
+/build:tlo.png
 
