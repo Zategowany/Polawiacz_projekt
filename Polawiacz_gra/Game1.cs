@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Polawiacz_gra.Controls;
 using System;
 using System.Collections.Generic;
 
@@ -11,6 +12,11 @@ namespace Polawiacz_gra
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Vector2 pozycjaKursora;
+
+        //dodawane
+        private Color _backgroundColour = Color.CornflowerBlue;
+        private List<Component> _gameComponents;
+        //od tego zioma
 
         Texture2D targetSprite;
         Texture2D crosshairsSprite;
@@ -47,19 +53,46 @@ namespace Polawiacz_gra
 
         protected override void Initialize()
         {
-            
+           
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+
+
             //wielkość okna
             _graphics.PreferredBackBufferWidth = 1280;  // szerokość
             _graphics.PreferredBackBufferHeight = 900;   // wysokość
             _graphics.ApplyChanges();
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            //dodawane
+
+            var randomButton = new Button(Content.Load<Texture2D>("Controls/Button"), Content.Load<SpriteFont>("Fonts/Font"))
+            {
+                Position = new Vector2(500, 200),
+                Text = "Random",
+            };
+
+            randomButton.Click += RandomButton_Click;
+
+            var quitButton = new Button(Content.Load<Texture2D>("Controls/Button"), Content.Load<SpriteFont>("Fonts/Font"))
+            {
+                Position = new Vector2(500, 400),
+                Text = "Quit",
+            };
+
+            quitButton.Click += QuitButton_Click;
+
+            _gameComponents = new List<Component>()
+            {
+                randomButton,
+                quitButton,
+            };
+            //od tego zioma
 
             //ladowanie obrazkow
             targetSprite = Content.Load<Texture2D>("target2");
@@ -69,10 +102,28 @@ namespace Polawiacz_gra
             
         }
 
+
+
+        //dodawane
+        private void QuitButton_Click(object sender, EventArgs e)
+        {
+            Exit();
+        }
+        private void RandomButton_Click(object sender, EventArgs e)
+        {
+            var rand = new Random();
+            _backgroundColour = new Color(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255) );
+        }
+        //od tego ziomka
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            //dodawane
+            foreach (var component in _gameComponents)
+                component.Update(gameTime);
+            //od tego zioma
 
             //nadanie obrazkowi wartosci 1 by mozna bylo pozniej ja zamienic na 0 i wylaczyc obrazek
             if (timer == 0)
@@ -149,10 +200,17 @@ namespace Polawiacz_gra
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(_backgroundColour);
+
+            
 
             _spriteBatch.Begin();
-            _spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), Color.White);
+            //_spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), Color.White);
+
+            //dodane
+            foreach (var component in _gameComponents)
+                component.Draw(gameTime, _spriteBatch);
+            //od tego ziomka
 
             //jesli kliknalem na obrazek znika
             for (int i = 0; i < 10; i++)
