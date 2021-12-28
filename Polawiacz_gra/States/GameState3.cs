@@ -9,11 +9,11 @@ using Polawiacz_gra.Controls;
 
 namespace Polawiacz_gra.States
 {
-    public class GameState : State
+    public class GameState3 : State
     {
-        
+
         private Vector2 pozycjaKursora;
-                             
+
         //pozycja celu
         Vector2[] pozycja = new Vector2[10];
         //odleglosc kursora od danego celu
@@ -31,11 +31,11 @@ namespace Polawiacz_gra.States
 
         int losowanie = 0;
         float wynik;
-        
-        
-        public GameState(Game1 game, GraphicsDevice graphicDevice, ContentManager content) : base(game, graphicDevice, content)
+
+
+        public GameState3(Game1 game, GraphicsDevice graphicDevice, ContentManager content) : base(game, graphicDevice, content)
         {
-            
+
             var buttonTexture = content.Load<Texture2D>("Controls/Button");
             var buttonFont = content.Load<SpriteFont>("Fonts/Font");
             var targetSprite = content.Load<Texture2D>("target2");
@@ -52,7 +52,7 @@ namespace Polawiacz_gra.States
             menuGameButton.Click += QuitGameButton_Click;
             _components = new List<Component>()
             {
-                
+
                 menuGameButton,
             };
 
@@ -66,12 +66,12 @@ namespace Polawiacz_gra.States
 
         public override void PostUpdate(GameTime gameTime)
         {
-            
+
         }
 
         public override void Update(GameTime gameTime)
         {
-           
+
 
             if (timer == 0)
             {
@@ -145,7 +145,7 @@ namespace Polawiacz_gra.States
                     component.Update(gameTime);
             }
 
-            
+
 
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -156,8 +156,8 @@ namespace Polawiacz_gra.States
 
             //spriteBatch.DrawString(_content.Load<SpriteFont>("Fonts/Font"), "Czas: ", new Vector2(10, 30), Color.Black);
             //spriteBatch.Draw(_content.Load<Texture2D>("target2"), new Vector2(600, 600), Color.White);
-            
-            for (int i = 0; i < 10; i++)
+
+            for (int i = 0; i < 3; i++)
             {
                 if (numercelu[i] == 1)
                 {
@@ -165,11 +165,11 @@ namespace Polawiacz_gra.States
                 }
             }
 
-            
+
             //gafika kursora
             spriteBatch.Draw(_content.Load<Texture2D>("crosshairs"), new Vector2(pozycjaKursora.X - promienKursora, pozycjaKursora.Y - promienKursora), Color.White);
             //czas
-            
+
             spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Czas: " + Math.Ceiling(timer).ToString(), new Vector2(0, 30), Color.Red);
             //wynik
             spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Pozostale smieci: " + trash.ToString(), new Vector2(0, 0), Color.White);
@@ -181,12 +181,12 @@ namespace Polawiacz_gra.States
                     component.Draw(gameTime, spriteBatch);
             }
 
-           
+
 
 
             //spriteBatch.End();
 
         }
-        
+
     }
 }

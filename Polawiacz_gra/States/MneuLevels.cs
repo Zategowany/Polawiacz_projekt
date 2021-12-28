@@ -8,12 +8,12 @@ using System.Text;
 
 namespace Polawiacz_gra.States
 {
-    public class MenuState : State
+    public class MenuLevels : State
     {
 
         private List<Component> _components;
 
-        public MenuState(Game1 game, GraphicsDevice graphicDevice, ContentManager content) : base(game, graphicDevice, content)
+        public MenuLevels(Game1 game, GraphicsDevice graphicDevice, ContentManager content) : base(game, graphicDevice, content)
         {
             var buttonTexture = content.Load<Texture2D>("Controls/Button");
             var buttonFont = content.Load<SpriteFont>("Fonts/Font");
@@ -24,7 +24,7 @@ namespace Polawiacz_gra.States
             var newGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(300, 200),
-                Text = "New Game",
+                Text = "1",
             };
 
             newGameButton.Click += NewGameButton_Click;
@@ -32,19 +32,17 @@ namespace Polawiacz_gra.States
             var loadGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(300, 300),
-                Text = "Levels",
+                Text = "2",
             };
 
             newGameButton.Click += LoadGameButton_Click;
-
             var quitGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(300, 400),
-                Text = "Quit Game",
+                Text = "3",
             };
 
             quitGameButton.Click += QuitGameButton_Click;
-
 
             _components = new List<Component>()
             {
@@ -56,13 +54,12 @@ namespace Polawiacz_gra.States
 
         private void QuitGameButton_Click(object sender, EventArgs e)
         {
-            _game.Exit();
+            _game.ChanegeState(new GameState3(_game, _graphicsDevice, _content));
         }
 
         private void LoadGameButton_Click(object sender, EventArgs e)
         {
-            // _game.ChanegeState(new MenuLevels(_game, _graphicsDevice, _content));
-            //_game.Exit();
+            _game.ChanegeState(new GameState2(_game, _graphicsDevice, _content));
         }
 
         private void NewGameButton_Click(object sender, EventArgs e)
@@ -76,10 +73,10 @@ namespace Polawiacz_gra.States
         {
             //spriteBatch.Begin();
 
-           foreach (var component in _components)
+            foreach (var component in _components)
                 component.Draw(gameTime, spriteBatch);
 
-           // spriteBatch.End();
+            // spriteBatch.End();
         }
 
         public override void PostUpdate(GameTime gameTime)
