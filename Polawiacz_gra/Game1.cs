@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Polawiacz_gra.Controls;
+using Polawiacz_gra.States;
 using System;
 using System.Collections.Generic;
 
@@ -14,8 +15,13 @@ namespace Polawiacz_gra
         private Vector2 pozycjaKursora;
 
         //dodawane
-        private Color _backgroundColour = Color.CornflowerBlue;
-        private List<Component> _gameComponents;
+        private State _currentState;
+        private State _nextState;
+
+        public void ChanegeState(State state)
+        {
+            _nextState = state;
+        }
         //od tego zioma
 
         Texture2D targetSprite;
@@ -42,7 +48,6 @@ namespace Polawiacz_gra
         int[] numercelu = new int[10];
 
         float wynik;
-
 
         public Game1()
         {
@@ -71,6 +76,9 @@ namespace Polawiacz_gra
 
             //dodawane
 
+            _currentState = new MenuState(this, _graphics.GraphicsDevice, Content);
+            
+            /*
             var randomButton = new Button(Content.Load<Texture2D>("Controls/Button"), Content.Load<SpriteFont>("Fonts/Font"))
             {
                 Position = new Vector2(500, 200),
@@ -92,6 +100,7 @@ namespace Polawiacz_gra
                 randomButton,
                 quitButton,
             };
+            */
             //od tego zioma
 
             //ladowanie obrazkow
@@ -104,26 +113,24 @@ namespace Polawiacz_gra
 
 
 
-        //dodawane
-        private void QuitButton_Click(object sender, EventArgs e)
-        {
-            Exit();
-        }
-        private void RandomButton_Click(object sender, EventArgs e)
-        {
-            var rand = new Random();
-            _backgroundColour = new Color(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255) );
-        }
-        //od tego ziomka
+        
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+               Exit();
 
-            //dodawane
-            foreach (var component in _gameComponents)
-                component.Update(gameTime);
-            //od tego zioma
+            
+            if(_nextState != null)
+            {
+                _currentState = _nextState;
+                _nextState = null;
+            }
+
+            _currentState.Update(gameTime);
+            _currentState.PostUpdate(gameTime);
+   
+            
+            
 
             //nadanie obrazkowi wartosci 1 by mozna bylo pozniej ja zamienic na 0 i wylaczyc obrazek
             if (timer == 0)
@@ -200,42 +207,48 @@ namespace Polawiacz_gra
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(_backgroundColour);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
 
             
 
             _spriteBatch.Begin();
-            //_spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), Color.White);
+           _spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), Color.White);
 
-            //dodane
-            foreach (var component in _gameComponents)
-                component.Draw(gameTime, _spriteBatch);
-            //od tego ziomka
-
-            //jesli kliknalem na obrazek znika
-            for (int i = 0; i < 10; i++)
-            {
-                if (numercelu[i] == 1)
-                {
-                    _spriteBatch.Draw(targetSprite, new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
-                }
-            }
            
 
+            _currentState.Draw(gameTime, _spriteBatch);
+
+            /*
+            
+            
+                //jesli kliknalem na obrazek znika
+
+                for (int i = 0; i < 10; i++)
+                {
+                    if (numercelu[i] == 1)
+                    {
+                        _spriteBatch.Draw(targetSprite, new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
+                    }
+                }
+
+            */
             //gafika kursora
             _spriteBatch.Draw(crosshairsSprite, new Vector2(pozycjaKursora.X - promienKursora, pozycjaKursora.Y - promienKursora), Color.White);
-            //czas
-            _spriteBatch.DrawString(gameFont, "Czas: "+  Math.Ceiling(timer).ToString(), new Vector2(0, 30), Color.Red);
-            //wynik
-            _spriteBatch.DrawString(gameFont,"Pozostale smieci: " +trash.ToString(), new Vector2(0, 0), Color.White);
-            //Zebranie wszystkiego
-            if (trash == 0)
-            {
-                _spriteBatch.DrawString(gameFont, "Zebrales wszystko!!!! Twoj wynik to: " + wynik.ToString(), new Vector2(400, 450), Color.White);
-            }
-            
-            _spriteBatch.End();
+            /*
+                //czas
+                _spriteBatch.DrawString(gameFont, "Czas: " + Math.Ceiling(timer).ToString(), new Vector2(0, 30), Color.Red);
+                //wynik
+                _spriteBatch.DrawString(gameFont, "Pozostale smieci: " + trash.ToString(), new Vector2(0, 0), Color.White);
+                //Zebranie wszystkiego
+                if (trash == 0)
+                {
 
+                    _spriteBatch.DrawString(gameFont, "Zebrales wszystko!!!! Twoj wynik to: " + wynik.ToString(), new Vector2(400, 450), Color.White);
+                }
+           */
+            _spriteBatch.End();
+            
 
 
             // TODO: Add your drawing code here
