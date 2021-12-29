@@ -21,33 +21,33 @@ namespace Polawiacz_gra.States
             var crosshairsSprite = content.Load<Texture2D>("crosshairs");
             var backgroundSprite = content.Load<Texture2D>("tlo");
             var gameFont = content.Load<SpriteFont>("galleryFont");
-            var newGameButton = new Button(buttonTexture, buttonFont)
+            var level1GameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(300, 200),
                 Text = "1",
             };
-            newGameButton.Click += NewGameButton_Click;
+            level1GameButton.Click += NewGameButton_Click;
 
-            var loadGameButton = new Button(buttonTexture, buttonFont)
+            var level2GameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(300, 300),
                 Text = "2",
             };
-            newGameButton.Click += LoadGameButton_Click;
+            level2GameButton.Click += LoadGameButton_Click;
 
-            var quitGameButton = new Button(buttonTexture, buttonFont)
+            var level3GameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(300, 400),
                 Text = "3",
             };
-            quitGameButton.Click += QuitGameButton_Click;
+            level3GameButton.Click += QuitGameButton_Click;
 
 
             _components = new List<Component>()
             {
-                newGameButton,
-                loadGameButton,
-                quitGameButton,
+                level1GameButton,
+                level2GameButton,
+                level3GameButton,
             };
         }
 
@@ -58,7 +58,7 @@ namespace Polawiacz_gra.States
 
         private void LoadGameButton_Click(object sender, EventArgs e)
         {
-           // _game.ChanegeState(new GameState2(_game, _graphicsDevice, _content));
+            _game.ChanegeState(new GameState2(_game, _graphicsDevice, _content));
         }
 
         private void NewGameButton_Click(object sender, EventArgs e)
