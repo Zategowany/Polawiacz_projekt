@@ -48,17 +48,29 @@ namespace Polawiacz_gra.States
                 Position = new Vector2(300, 400),
                 Text = "Menu",
             };
+            menuGameButton.Click += MenuGameButton_Click;
+            var quitGameButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(300, 500),
+                Text = "Quit",
+            };
 
-            menuGameButton.Click += QuitGameButton_Click;
+            quitGameButton.Click += QuitGameButton_Click;
             _components = new List<Component>()
             {
-                
                 menuGameButton,
+                quitGameButton,
             };
 
 
         }
+
         private void QuitGameButton_Click(object sender, EventArgs e)
+        {
+            _game.Exit();
+        }
+
+        private void MenuGameButton_Click(object sender, EventArgs e)
         {
             _game.ChanegeState(new MenuState(_game, _graphicsDevice, _content));
         }

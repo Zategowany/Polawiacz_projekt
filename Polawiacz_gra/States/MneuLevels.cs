@@ -26,7 +26,6 @@ namespace Polawiacz_gra.States
                 Position = new Vector2(300, 200),
                 Text = "1",
             };
-
             newGameButton.Click += NewGameButton_Click;
 
             var loadGameButton = new Button(buttonTexture, buttonFont)
@@ -34,15 +33,15 @@ namespace Polawiacz_gra.States
                 Position = new Vector2(300, 300),
                 Text = "2",
             };
-
             newGameButton.Click += LoadGameButton_Click;
+
             var quitGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(300, 400),
                 Text = "3",
             };
-
             quitGameButton.Click += QuitGameButton_Click;
+
 
             _components = new List<Component>()
             {
@@ -59,7 +58,7 @@ namespace Polawiacz_gra.States
 
         private void LoadGameButton_Click(object sender, EventArgs e)
         {
-            _game.ChanegeState(new GameState2(_game, _graphicsDevice, _content));
+           // _game.ChanegeState(new GameState2(_game, _graphicsDevice, _content));
         }
 
         private void NewGameButton_Click(object sender, EventArgs e)

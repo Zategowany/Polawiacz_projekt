@@ -25,7 +25,7 @@ namespace Polawiacz_gra.States
 
         MouseState mState;
         bool mReleased = true;
-        int trash = 10;
+        int trash = 3;
         double timer = 0;
         int[] numercelu = new int[10];
 
