@@ -25,7 +25,7 @@ namespace Polawiacz_gra.States
 
         MouseState mState;
         bool mReleased = true;
-        int trash = 2;
+        int trash = 10;
         double timer = 0;
         int[] numercelu = new int[10];
 
@@ -38,7 +38,8 @@ namespace Polawiacz_gra.States
 
             var buttonTexture = content.Load<Texture2D>("Controls/Button");
             var buttonFont = content.Load<SpriteFont>("Fonts/Font");
-            var targetSprite = content.Load<Texture2D>("target2");
+            var target2Sprite = content.Load<Texture2D>("target2");
+            var targetSprite = content.Load<Texture2D>("target");
             var crosshairsSprite = content.Load<Texture2D>("crosshairs");
             var backgroundSprite = content.Load<Texture2D>("tlo");
             var gameFont = content.Load<SpriteFont>("galleryFont");
@@ -157,11 +158,14 @@ namespace Polawiacz_gra.States
             //spriteBatch.DrawString(_content.Load<SpriteFont>("Fonts/Font"), "Czas: ", new Vector2(10, 30), Color.Black);
             //spriteBatch.Draw(_content.Load<Texture2D>("target2"), new Vector2(600, 600), Color.White);
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 10; i++)
             {
                 if (numercelu[i] == 1)
                 {
-                    spriteBatch.Draw(_content.Load<Texture2D>("target2"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
+                   
+                        //spriteBatch.Draw(_content.Load<Texture2D>("target"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
+                    
+                        spriteBatch.Draw(_content.Load<Texture2D>("target2"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
                 }
             }
 
