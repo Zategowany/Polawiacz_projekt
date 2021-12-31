@@ -45,13 +45,13 @@ namespace Polawiacz_gra.States
 
             var menuGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(300, 400),
+                Position = new Vector2(400, 600),
                 Text = "Menu",
             };
             menuGameButton.Click += MenuGameButton_Click;
             var quitGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(300, 500),
+                Position = new Vector2(400, 700),
                 Text = "Quit",
             };
 

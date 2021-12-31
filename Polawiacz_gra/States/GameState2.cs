@@ -48,7 +48,7 @@ namespace Polawiacz_gra.States
 
             var menuGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(300, 700),
+                Position = new Vector2(400, 700),
                 Text = "Menu",
             };
 
@@ -136,6 +136,7 @@ namespace Polawiacz_gra.States
                         { 
                             trash--; 
                         }
+                        //klikniecie w target ktory powinien zostac
                         if (wybortargetu[i] == 2)
                         {
                             zlewybory++; 
