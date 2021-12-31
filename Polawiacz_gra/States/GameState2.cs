@@ -27,6 +27,7 @@ namespace Polawiacz_gra.States
         bool mReleased = true;
         int trash = 0;
         double timer = 0;
+        int zlewybory =0;
         int[] numercelu = new int[10];
         int[] wybortargetu = new int[10];
 
@@ -47,7 +48,7 @@ namespace Polawiacz_gra.States
 
             var menuGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(300, 400),
+                Position = new Vector2(300, 700),
                 Text = "Menu",
             };
 
@@ -135,7 +136,11 @@ namespace Polawiacz_gra.States
                         { 
                             trash--; 
                         }
-                            
+                        if (wybortargetu[i] == 2)
+                        {
+                            zlewybory++; 
+                        }
+
                         numercelu[i] = 0;
                     }
                 }
@@ -198,7 +203,7 @@ namespace Polawiacz_gra.States
             //Zebranie wszystkiego
             if (trash == 0)
             {
-                spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Zebrales wszystko!!!! Twoj wynik to: " + wynik.ToString(), new Vector2(400, 450), Color.White);
+                spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Zebrales wszystko!!!! Twoj wynik to: " + wynik.ToString()+ "\n Dokonales " + zlewybory.ToString()+" zlych wyborow.", new Vector2(400, 450), Color.White);
                 foreach (var component in _components)
                     component.Draw(gameTime, spriteBatch);
             }
