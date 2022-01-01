@@ -136,7 +136,7 @@ namespace Polawiacz_gra.States
                         { 
                             trash--; 
                         }
-                        //klikniecie w target ktory powinien zostac
+                        //klikniecie w target ktory powinien zostac nietkniety
                         if (wybortargetu[i] == 2)
                         {
                             zlewybory++; 
