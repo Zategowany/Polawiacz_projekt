@@ -55,16 +55,31 @@ namespace Polawiacz_gra.States
                 Text = "Menu",
             };
 
-            menuGameButton.Click += QuitGameButton_Click;
+            menuGameButton.Click += MenuGameButton_Click;
+
+            var restartGameButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(400, 600),
+                Text = "Restart",
+            };
+
+            restartGameButton.Click += RestartGameButton_Click;
             _components = new List<Component>()
             {
 
                 menuGameButton,
+                restartGameButton,
             };
 
 
         }
-        private void QuitGameButton_Click(object sender, EventArgs e)
+
+        private void RestartGameButton_Click(object sender, EventArgs e)
+        {
+            _game.ChanegeState(new GameState3(_game, _graphicsDevice, _content));
+        }
+
+        private void MenuGameButton_Click(object sender, EventArgs e)
         {
             _game.ChanegeState(new MenuState(_game, _graphicsDevice, _content));
         }
@@ -235,7 +250,7 @@ namespace Polawiacz_gra.States
             //Zebranie wszystkiego
             if (trash == 0)
             {
-                spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Zebrales wszystko!!!! Twoj wynik to: " + wynik.ToString() + "\n Dokonales " + zlewybory.ToString() + " zlych wyborow.", new Vector2(400, 450), Color.White);
+                spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Zebrales wszystko!!!! Twoj wynik to: " + Math.Ceiling(wynik).ToString() + "\n Dokonales " + zlewybory.ToString() + " zlych wyborow.", new Vector2(400, 200), Color.White);
                 foreach (var component in _components)
                     component.Draw(gameTime, spriteBatch);
             }

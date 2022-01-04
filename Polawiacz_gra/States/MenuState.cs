@@ -24,7 +24,7 @@ namespace Polawiacz_gra.States
             var newGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(400, 200),
-                Text = "New Game",
+                Text = "Nowa Gra",
             };
 
             newGameButton.Click += NewGameButton_Click;
@@ -32,7 +32,7 @@ namespace Polawiacz_gra.States
             var levelsGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(400, 300),
-                Text = "Levels",
+                Text = "Poziomy",
             };
 
             levelsGameButton.Click += LevelsGameButton_Click;
@@ -40,7 +40,7 @@ namespace Polawiacz_gra.States
             var quitGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(400, 400),
-                Text = "Quit Game",
+                Text = "Wyjdz z Gry",
             };
 
             quitGameButton.Click += QuitGameButton_Click;

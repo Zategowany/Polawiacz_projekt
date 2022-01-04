@@ -23,24 +23,32 @@ namespace Polawiacz_gra.States
             var gameFont = content.Load<SpriteFont>("galleryFont");
             var level1GameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(300, 200),
+                Position = new Vector2(400, 200),
                 Text = "1",
             };
             level1GameButton.Click += NewGameButton_Click;
 
             var level2GameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(300, 300),
+                Position = new Vector2(400, 300),
                 Text = "2",
             };
             level2GameButton.Click += LoadGameButton_Click;
 
             var level3GameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(300, 400),
+                Position = new Vector2(400, 400),
                 Text = "3",
             };
             level3GameButton.Click += QuitGameButton_Click;
+
+            var menuGameButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(400, 500),
+                Text = "Menu",
+            };
+
+            menuGameButton.Click += MenuGameButton_Click;
 
 
             _components = new List<Component>()
@@ -48,7 +56,13 @@ namespace Polawiacz_gra.States
                 level1GameButton,
                 level2GameButton,
                 level3GameButton,
+                menuGameButton,
             };
+        }
+
+        private void MenuGameButton_Click(object sender, EventArgs e)
+        {
+            _game.ChanegeState(new MenuState(_game, _graphicsDevice, _content));
         }
 
         private void QuitGameButton_Click(object sender, EventArgs e)
