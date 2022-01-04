@@ -30,6 +30,9 @@ namespace Polawiacz_gra.States
         int zlewybory = 0;
         int[] numercelu = new int[10];
         int[] wybortargetu = new int[10];
+        int[] ruchceluX = new int[10];
+        int[] ruchceluY = new int[10];
+        int[] kierunek = new int[10];
 
         int losowanie = 1;
         float wynik;
@@ -115,10 +118,36 @@ namespace Polawiacz_gra.States
                     pozycja[i].X = rand.Next(45, 1280 - targetRadius);
                     pozycja[i].Y = rand.Next(45, 900 - targetRadius);
                     wybortargetu[i] = rand.Next(0, 3);
+                    ruchceluX[i] = rand.Next(-3, 3);
+                    ruchceluY[i] = rand.Next(-3, 3);
+                    kierunek[i] = rand.Next(0, 1);
                     if (wybortargetu[i] == 0 || wybortargetu[i] == 1)
                         trash++;
                 }
                 losowanie = 0;
+            }
+            //ruch obiektow
+            for (int i = 0; i < 10; i++)
+            {
+                if (kierunek[i] == 0)
+                {
+                    pozycja[i].X = pozycja[i].X - ruchceluX[i];
+                    pozycja[i].Y = pozycja[i].Y - ruchceluY[i];
+                    if (pozycja[i].X < 10 || pozycja[i].Y < 10 || pozycja[i].X > 1270 || pozycja[i].Y > 890)
+                    {
+                        kierunek[i] = 1;
+                    }
+                }
+                if (kierunek[i] == 1)
+                {
+                    pozycja[i].X = pozycja[i].X + ruchceluX[i];
+                    pozycja[i].Y = pozycja[i].Y + ruchceluY[i];
+                    if (pozycja[i].X < 10 || pozycja[i].Y < 10 || pozycja[i].X > 1270 || pozycja[i].Y > 890)
+                    {
+                        kierunek[i] = 0;
+                    }
+                }
+
             }
 
 
@@ -135,7 +164,10 @@ namespace Polawiacz_gra.States
                         if (wybortargetu[i] == 0 || wybortargetu[i] == 1)
                         {
                             trash--;
+                            pozycja[i].X = 3000;
+                            pozycja[i].Y = 3000;
                         }
+                        //klikniecie w target ktory powinien zostac nietkniety
                         if (wybortargetu[i] == 2)
                         {
                             zlewybory++;
