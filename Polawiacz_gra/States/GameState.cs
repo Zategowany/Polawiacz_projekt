@@ -149,6 +149,8 @@ namespace Polawiacz_gra.States
                     odleglosc[i] = Vector2.Distance(pozycja[i], mState.Position.ToVector2());
                     if (odleglosc[i] < targetRadius && trash > 0)
                     {
+                        pozycja[i].X = 3000;
+                        pozycja[i].Y = 3000;
                         trash--;
                         numercelu[i] = 0;
                     }
