@@ -134,7 +134,9 @@ namespace Polawiacz_gra.States
                         //wybieranie czegos innego niz smieci nie odejmuje ilosci smieci
                         if (wybortargetu[i] == 0 || wybortargetu[i] == 1)
                         { 
-                            trash--; 
+                            trash--;
+                            pozycja[i].X = 3000;
+                            pozycja[i].Y = 3000;
                         }
                         //klikniecie w target ktory powinien zostac nietkniety
                         if (wybortargetu[i] == 2)
