@@ -39,11 +39,19 @@ namespace Polawiacz_gra.States
 
             var quitGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(400, 400),
+                Position = new Vector2(400, 500),
                 Text = "Wyjdz z Gry",
             };
 
             quitGameButton.Click += QuitGameButton_Click;
+
+            var rulesGameButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(400, 400),
+                Text = "Zasady",
+            };
+
+            rulesGameButton.Click += RulesGameButton_Click;
 
 
             _components = new List<Component>()
@@ -51,7 +59,13 @@ namespace Polawiacz_gra.States
                 newGameButton,
                 levelsGameButton,
                 quitGameButton,
+                rulesGameButton,
             };
+        }
+
+        private void RulesGameButton_Click(object sender, EventArgs e)
+        {
+            _game.ChanegeState(new Rules(_game, _graphicsDevice, _content));
         }
 
         private void QuitGameButton_Click(object sender, EventArgs e)
@@ -62,7 +76,7 @@ namespace Polawiacz_gra.States
         private void LevelsGameButton_Click(object sender, EventArgs e)
         {
              _game.ChanegeState(new MenuLevels(_game, _graphicsDevice, _content));
-            //_game.Exit();
+            
         }
 
         private void NewGameButton_Click(object sender, EventArgs e)

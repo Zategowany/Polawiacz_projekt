@@ -15,12 +15,13 @@ namespace Polawiacz_gra.States
         private Vector2 pozycjaKursora;
 
         //pozycja celu
-        Vector2[] pozycja = new Vector2[10];
+        Vector2[] pozycja = new Vector2[iloscsmieci];
         //odleglosc kursora od danego celu
-        float[] odleglosc = new float[10];
+        float[] odleglosc = new float[iloscsmieci];
 
         const int targetRadius = 45;
         const int promienKursora = 25;
+        const int iloscsmieci = 15;
         private List<Component> _components;
 
         MouseState mState;
@@ -28,8 +29,8 @@ namespace Polawiacz_gra.States
         int trash = 0;
         double timer = 0;
         int zlewybory =0;
-        int[] numercelu = new int[10];
-        int[] wybortargetu = new int[10];
+        int[] numercelu = new int[iloscsmieci];
+        int[] wybortargetu = new int[iloscsmieci];
 
         int losowanie = 1;
         float wynik;
@@ -117,7 +118,7 @@ namespace Polawiacz_gra.States
 
             if (timer == 0)
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < iloscsmieci; i++)
                 {
                     numercelu[i] = 1;
                     
@@ -149,16 +150,16 @@ namespace Polawiacz_gra.States
                 Random rand = new Random();
 
                 //losowanie pozycji w okienku gry
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < iloscsmieci; i++)
                 {
                     pozycja[i].X = rand.Next(100, 1220 - targetRadius);
                     pozycja[i].Y = rand.Next(100, 850 - targetRadius);
 
                     //minimalizacja generacji obiektow na sobie
                     int minimalnaodleglosc = targetRadius * 3;
-                    for ( int k = 0; k <2; k++)
+                    for ( int k = 0; k <4; k++)
                     {
-                        for (int j = 0; j < 10; j++)
+                        for (int j = 0; j < iloscsmieci; j++)
                         {
                             if (i != j)
                             {
@@ -172,8 +173,8 @@ namespace Polawiacz_gra.States
                         }
                     }
                     
-                    wybortargetu[i] = rand.Next(0, 3);
-                    if (wybortargetu[i] == 0 || wybortargetu[i] == 1)
+                    wybortargetu[i] = rand.Next(0, 5);
+                    if (wybortargetu[i] == 0 || wybortargetu[i] == 1 || wybortargetu[i] == 2)
                         trash++;
                 }
                 losowanie = 0;
@@ -184,20 +185,20 @@ namespace Polawiacz_gra.States
             {
 
                 //sprawdzanie odleglosci od celu
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < iloscsmieci; i++)
                 {
                     odleglosc[i] = Vector2.Distance(pozycja[i], mState.Position.ToVector2());
                     if (odleglosc[i] < targetRadius && trash > 0)
                     {
                         //wybieranie czegos innego niz smieci nie odejmuje ilosci smieci
-                        if (wybortargetu[i] == 0 || wybortargetu[i] == 1)
+                        if (wybortargetu[i] == 0 || wybortargetu[i] == 1 || wybortargetu[i] == 2)
                         { 
                             trash--;
                             pozycja[i].X = 3000;
                             pozycja[i].Y = 3000;
                         }
                         //klikniecie w target ktory powinien zostac nietkniety
-                        if (wybortargetu[i] == 2)
+                        if (wybortargetu[i] == 3 || wybortargetu[i] == 4)
                         {
                             zlewybory++; 
                         }
@@ -241,7 +242,7 @@ namespace Polawiacz_gra.States
 
             //jesli kliknalem na obrazek znika
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < iloscsmieci; i++)
             {
                 if (numercelu[i] == 1)
                 {
@@ -255,9 +256,15 @@ namespace Polawiacz_gra.States
                             spriteBatch.Draw(_content.Load<Texture2D>("target2"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
                             break;
                             case 2:
+                            spriteBatch.Draw(_content.Load<Texture2D>("target4"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
+                            break;
+                            case 3:
                             spriteBatch.Draw(_content.Load<Texture2D>("target3"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
                             break;
-                            
+                            case 4:
+                            spriteBatch.Draw(_content.Load<Texture2D>("target5"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
+                            break;
+
                     }
                         
                 }

@@ -150,7 +150,7 @@ namespace Polawiacz_gra.States
 
                     //minimalizacja generacji obiektow na sobie
                     int minimalnaodleglosc = targetRadius * 3;
-                    for (int k = 0; k < 2; k++)
+                    for (int k = 0; k < 3; k++)
                     {
                         for (int j = 0; j < 10; j++)
                         {
