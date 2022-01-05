@@ -144,8 +144,28 @@ namespace Polawiacz_gra.States
                 //losowanie pozycji w okienku gry
                 for (int i = 0; i < 10; i++)
                 {
-                    pozycja[i].X = rand.Next(70, 1250 - targetRadius);
-                    pozycja[i].Y = rand.Next(70, 850 - targetRadius);
+                    
+                    pozycja[i].X = rand.Next(100, 1220 - targetRadius);
+                    pozycja[i].Y = rand.Next(100, 850 - targetRadius);
+
+                    //minimalizacja generacji obiektow na sobie
+                    int minimalnaodleglosc = targetRadius * 3;
+                    for (int k = 0; k < 2; k++)
+                    {
+                        for (int j = 0; j < 10; j++)
+                        {
+                            if (i != j)
+                            {
+                                while (Vector2.Distance(pozycja[i], pozycja[j]) < minimalnaodleglosc)
+                                {
+                                    pozycja[i].X = rand.Next(100, 1220 - targetRadius);
+                                    pozycja[i].Y = rand.Next(100, 850 - targetRadius);
+                                }
+                            }
+
+                        }
+                    }
+
                 }
                 losowanie = 0;
 
