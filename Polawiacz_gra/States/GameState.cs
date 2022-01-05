@@ -37,6 +37,7 @@ namespace Polawiacz_gra.States
         {
             
             var buttonTexture = content.Load<Texture2D>("Controls/Button");
+            var buttoningameTexture = content.Load<Texture2D>("Controls/Button2");
             var buttonFont = content.Load<SpriteFont>("Fonts/Font");
             var targetSprite = content.Load<Texture2D>("target2");
             var crosshairsSprite = content.Load<Texture2D>("crosshairs");
@@ -49,6 +50,15 @@ namespace Polawiacz_gra.States
                 Text = "Menu",
             };
             menuGameButton.Click += MenuGameButton_Click;
+
+            var menuingameGameButton = new Button(buttoningameTexture, buttonFont)
+            {
+                Position = new Vector2(1080, 0),
+
+            };
+
+            menuingameGameButton.Click += MenuGameButton_Click;
+
             var nextlevelGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(400, 600),
@@ -70,6 +80,7 @@ namespace Polawiacz_gra.States
                 menuGameButton,
                 nextlevelGameButton,
                 restartGameButton,
+                menuingameGameButton,
             };
 
 
@@ -133,8 +144,8 @@ namespace Polawiacz_gra.States
                 //losowanie pozycji w okienku gry
                 for (int i = 0; i < 10; i++)
                 {
-                    pozycja[i].X = rand.Next(45, 1280 - targetRadius);
-                    pozycja[i].Y = rand.Next(45, 900 - targetRadius);
+                    pozycja[i].X = rand.Next(70, 1250 - targetRadius);
+                    pozycja[i].Y = rand.Next(70, 850 - targetRadius);
                 }
                 losowanie = 0;
 
@@ -169,21 +180,24 @@ namespace Polawiacz_gra.States
             {
 
                 wynik = (float)(1000 / timer);
-                foreach (var component in _components)
-                    component.Update(gameTime);
+                for (int i = 0; i < 3; i++)
+                {
+                    _components[i].Update(gameTime);
+                }
+            }
+            if (trash != 0)
+            {
+                _components[3].Update(gameTime);
+
             }
 
-            
+
 
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            //spriteBatch.Begin();
-            //jesli kliknalem na obrazek znika
-
-
-            //spriteBatch.DrawString(_content.Load<SpriteFont>("Fonts/Font"), "Czas: ", new Vector2(10, 30), Color.Black);
-            //spriteBatch.Draw(_content.Load<Texture2D>("target2"), new Vector2(600, 600), Color.White);
+            //tlo
+            spriteBatch.Draw(_content.Load<Texture2D>("tlo"), new Vector2(0, 0), Color.White);
             
             for (int i = 0; i < 10; i++)
             {
@@ -192,21 +206,28 @@ namespace Polawiacz_gra.States
                     spriteBatch.Draw(_content.Load<Texture2D>("target2"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
                 }
             }
-
             
             //gafika kursora
             spriteBatch.Draw(_content.Load<Texture2D>("crosshairs"), new Vector2(pozycjaKursora.X - promienKursora, pozycjaKursora.Y - promienKursora), Color.White);
+            //guzik menu w grze
+            if (trash != 0)
+            {
+                _components[3].Draw(gameTime, spriteBatch);
+
+            }
             //czas
-            
             spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Czas: " + Math.Ceiling(timer).ToString(), new Vector2(0, 30), Color.Red);
             //wynik
             spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Pozostale smieci: " + trash.ToString(), new Vector2(0, 0), Color.White);
             //Zebranie wszystkiego
+
             if (trash == 0)
             {
                 spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Zebrales wszystko!!!! Twoj wynik to: " + Math.Ceiling(wynik).ToString(), new Vector2(400, 200), Color.White);
-                foreach (var component in _components)
-                    component.Draw(gameTime, spriteBatch);
+                for (int i = 0; i < 3; i++)
+                {
+                    _components[i].Draw(gameTime, spriteBatch);
+                }
             }
 
            

@@ -64,7 +64,7 @@ namespace Polawiacz_gra
             //ladowanie obrazkow
             targetSprite = Content.Load<Texture2D>("target2");
             crosshairsSprite = Content.Load<Texture2D>("crosshairs");
-            backgroundSprite = Content.Load<Texture2D>("tlo");
+            backgroundSprite = Content.Load<Texture2D>("tlomenu");
             gameFont = Content.Load<SpriteFont>("galleryFont");
             
         }

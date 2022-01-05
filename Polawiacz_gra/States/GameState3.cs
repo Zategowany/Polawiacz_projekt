@@ -42,6 +42,7 @@ namespace Polawiacz_gra.States
         {
 
             var buttonTexture = content.Load<Texture2D>("Controls/Button");
+            var buttoningameTexture = content.Load<Texture2D>("Controls/Button2");
             var buttonFont = content.Load<SpriteFont>("Fonts/Font");
             var target2Sprite = content.Load<Texture2D>("target2");
             var targetSprite = content.Load<Texture2D>("target");
@@ -57,6 +58,14 @@ namespace Polawiacz_gra.States
 
             menuGameButton.Click += MenuGameButton_Click;
 
+            var menuingameGameButton = new Button(buttoningameTexture, buttonFont)
+            {
+                Position = new Vector2(1080, 0),
+            };
+
+            menuingameGameButton.Click += MenuGameButton_Click;
+
+
             var restartGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(400, 600),
@@ -69,6 +78,7 @@ namespace Polawiacz_gra.States
 
                 menuGameButton,
                 restartGameButton,
+                menuingameGameButton,
             };
 
 
@@ -130,8 +140,8 @@ namespace Polawiacz_gra.States
                 //losowanie pozycji w okienku gry
                 for (int i = 0; i < 10; i++)
                 {
-                    pozycja[i].X = rand.Next(45, 1280 - targetRadius);
-                    pozycja[i].Y = rand.Next(45, 900 - targetRadius);
+                    pozycja[i].X = rand.Next(100, 1250 - targetRadius);
+                    pozycja[i].Y = rand.Next(100, 850 - targetRadius);
                     wybortargetu[i] = rand.Next(0, 3);
                     ruchceluX[i] = rand.Next(-3, 3);
                     ruchceluY[i] = rand.Next(-3, 3);
@@ -142,29 +152,31 @@ namespace Polawiacz_gra.States
                 losowanie = 0;
             }
             //ruch obiektow
-            for (int i = 0; i < 10; i++)
+            if (trash != 0)
             {
-                if (kierunek[i] == 0)
+                for (int i = 0; i < 10; i++)
                 {
-                    pozycja[i].X = pozycja[i].X - ruchceluX[i];
-                    pozycja[i].Y = pozycja[i].Y - ruchceluY[i];
-                    if (pozycja[i].X < 10 || pozycja[i].Y < 10 || pozycja[i].X > 1270 || pozycja[i].Y > 890)
+                    if (kierunek[i] == 0)
                     {
-                        kierunek[i] = 1;
+                        pozycja[i].X = pozycja[i].X - ruchceluX[i];
+                        pozycja[i].Y = pozycja[i].Y - ruchceluY[i];
+                        if (pozycja[i].X < 100 || pozycja[i].Y < 100 || pozycja[i].X > 1190 || pozycja[i].Y > 820)
+                        {
+                            kierunek[i] = 1;
+                        }
                     }
-                }
-                if (kierunek[i] == 1)
-                {
-                    pozycja[i].X = pozycja[i].X + ruchceluX[i];
-                    pozycja[i].Y = pozycja[i].Y + ruchceluY[i];
-                    if (pozycja[i].X < 10 || pozycja[i].Y < 10 || pozycja[i].X > 1270 || pozycja[i].Y > 890)
+                    if (kierunek[i] == 1)
                     {
-                        kierunek[i] = 0;
+                        pozycja[i].X = pozycja[i].X + ruchceluX[i];
+                        pozycja[i].Y = pozycja[i].Y + ruchceluY[i];
+                        if (pozycja[i].X < 100 || pozycja[i].Y < 100 || pozycja[i].X > 1190 || pozycja[i].Y > 820)
+                        {
+                            kierunek[i] = 0;
+                        }
                     }
-                }
 
+                }
             }
-
 
             if (mState.LeftButton == ButtonState.Pressed && mReleased == true)
             {
@@ -200,13 +212,21 @@ namespace Polawiacz_gra.States
             {
                 mReleased = true;
             }
-            // TODO: Add your update logic here
+           
+            //rysowanie przyciskow podczas gry jak i po zakonczeniu
             if (trash == 0)
             {
 
                 wynik = (float)(1000 / timer);
-                foreach (var component in _components)
-                    component.Update(gameTime);
+                for (int i = 0; i < 2; i++)
+                {
+                    _components[i].Update(gameTime);
+                }
+            }
+            if (trash != 0)
+            {
+                _components[2].Update(gameTime);
+
             }
 
 
@@ -214,7 +234,8 @@ namespace Polawiacz_gra.States
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-
+            //tlo
+            spriteBatch.Draw(_content.Load<Texture2D>("tlo3v2"), new Vector2(0, 0), Color.White);
             //jesli kliknalem na obrazek znika
 
             for (int i = 0; i < 10; i++)
@@ -238,7 +259,12 @@ namespace Polawiacz_gra.States
 
                 }
             }
+            //wyswietrlanie przycisku menu podczas gry
+            if (trash != 0)
+            {
+                _components[2].Draw(gameTime, spriteBatch);
 
+            }
 
             //gafika kursora
             spriteBatch.Draw(_content.Load<Texture2D>("crosshairs"), new Vector2(pozycjaKursora.X - promienKursora, pozycjaKursora.Y - promienKursora), Color.White);
@@ -251,8 +277,10 @@ namespace Polawiacz_gra.States
             if (trash == 0)
             {
                 spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Zebrales wszystko!!!! Twoj wynik to: " + Math.Ceiling(wynik).ToString() + "\n Dokonales " + zlewybory.ToString() + " zlych wyborow.", new Vector2(400, 200), Color.White);
-                foreach (var component in _components)
-                    component.Draw(gameTime, spriteBatch);
+                for (int i = 0; i < 2; i++)
+                {
+                    _components[i].Draw(gameTime, spriteBatch);
+                }
             }
 
         }

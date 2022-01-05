@@ -39,6 +39,7 @@ namespace Polawiacz_gra.States
         {
 
             var buttonTexture = content.Load<Texture2D>("Controls/Button");
+            var buttoningameTexture = content.Load<Texture2D>("Controls/Button2");
             var buttonFont = content.Load<SpriteFont>("Fonts/Font");
             var target2Sprite = content.Load<Texture2D>("target2");
             var targetSprite = content.Load<Texture2D>("target");
@@ -51,6 +52,16 @@ namespace Polawiacz_gra.States
                 Position = new Vector2(400, 700),
                 Text = "Menu",
             };
+
+            menuGameButton.Click += MenuGameButton_Click;
+
+            var menuingameGameButton = new Button(buttoningameTexture, buttonFont)
+            {
+                Position = new Vector2(1080, 0),
+                
+            };
+
+            menuingameGameButton.Click += MenuGameButton_Click;
 
             var nextlevelGameButton = new Button(buttonTexture, buttonFont)
 
@@ -69,14 +80,16 @@ namespace Polawiacz_gra.States
 
             restartGameButton.Click += RestartGameButton_Click;
 
-            menuGameButton.Click += MenuGameButton_Click;
+           
             _components = new List<Component>()
             {
                 nextlevelGameButton,
                 menuGameButton,
                 restartGameButton,
+                menuingameGameButton,
             };
-            
+           
+
 
 
         }
@@ -138,8 +151,8 @@ namespace Polawiacz_gra.States
                 //losowanie pozycji w okienku gry
                 for (int i = 0; i < 10; i++)
                 {
-                    pozycja[i].X = rand.Next(45, 1280 - targetRadius);
-                    pozycja[i].Y = rand.Next(45, 900 - targetRadius);
+                    pozycja[i].X = rand.Next(100, 1220 - targetRadius);
+                    pozycja[i].Y = rand.Next(100, 850 - targetRadius);
                     wybortargetu[i] = rand.Next(0, 3);
                     if (wybortargetu[i] == 0 || wybortargetu[i] == 1)
                         trash++;
@@ -182,13 +195,21 @@ namespace Polawiacz_gra.States
             {
                 mReleased = true;
             }
-            // TODO: Add your update logic here
+           
+            //rysowanie przyciskow podczas gry jak i po zakonczeniu
             if (trash == 0)
             {
 
                 wynik = (float)(1000 / timer);
-                foreach (var component in _components)
-                    component.Update(gameTime);
+                for (int i=0; i<3 ;i++)
+                {
+                    _components[i].Update(gameTime);
+                }
+            }
+            if (trash != 0)
+            {
+                _components[3].Update(gameTime);
+
             }
 
 
@@ -196,7 +217,9 @@ namespace Polawiacz_gra.States
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            
+            //tlo
+            spriteBatch.Draw(_content.Load<Texture2D>("tlo2v2"), new Vector2(0, 0), Color.White);
+
             //jesli kliknalem na obrazek znika
 
             for (int i = 0; i < 10; i++)
@@ -220,6 +243,12 @@ namespace Polawiacz_gra.States
                         
                 }
             }
+            //wyswietrlanie przycisku menu podczas gry
+            if (trash != 0)
+            {
+                _components[3].Draw(gameTime, spriteBatch);
+
+            }
 
 
             //gafika kursora
@@ -233,8 +262,14 @@ namespace Polawiacz_gra.States
             if (trash == 0)
             {
                 spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Zebrales wszystko!!!! Twoj wynik to: " + Math.Ceiling(wynik).ToString() + "\n Dokonales " + zlewybory.ToString()+" zlych wyborow.", new Vector2(400, 200), Color.White);
-                foreach (var component in _components)
-                    component.Draw(gameTime, spriteBatch);
+               // foreach (var component in _components)
+                //    component.Draw(gameTime, spriteBatch);
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        _components[i].Draw(gameTime, spriteBatch);
+                    }
+
             }
 
         }
