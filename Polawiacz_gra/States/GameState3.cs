@@ -137,7 +137,9 @@ namespace Polawiacz_gra.States
             if (losowanie == 1)
             {
                 Random rand = new Random();
-
+                //warunek odpowiedniej generacji jesli bedzie wiecej niz 4 obiekty ktorych nie mozna kliknac zmienia na tylko generacje smieci
+                bool warunek = false;
+                int zliczanie = 0;
                 //losowanie pozycji w okienku gry
                 for (int i = 0; i < iloscsmieci; i++)
                 {
@@ -161,7 +163,24 @@ namespace Polawiacz_gra.States
                         }
                     }
                     //losowanie z dostepnych smieci i innych obiektow
-                    wybortargetu[i] = rand.Next(0, 5);
+                    if (warunek == true)
+                    {
+                        wybortargetu[i] = rand.Next(0, 3);
+                    }
+                    if (warunek == false)
+                    {
+                        wybortargetu[i] = rand.Next(0, 5);
+                        if(wybortargetu[i] == 3 || wybortargetu[i] == 4)
+                        {
+                            zliczanie++;
+                            if(zliczanie == 4)
+                            {
+                                warunek = true;
+                            }
+                        }
+                    }
+                    
+                    
                     // losowanie poczatkowego ruchu celu
                     ruchceluX[i] = rand.Next(-3, 3);
                     ruchceluY[i] = rand.Next(-3, 3);
