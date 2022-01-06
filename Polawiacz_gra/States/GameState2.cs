@@ -249,21 +249,21 @@ namespace Polawiacz_gra.States
                    
                    switch (wybortargetu[i])
                     {
-                            case 0:
+                          case 0:
                             spriteBatch.Draw(_content.Load<Texture2D>("target"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
-                            break;
-                            case 1:
+                           break;
+                          case 1:
                             spriteBatch.Draw(_content.Load<Texture2D>("target2"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
-                            break;
-                            case 2:
+                           break;
+                          case 2:
                             spriteBatch.Draw(_content.Load<Texture2D>("target4"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
-                            break;
-                            case 3:
+                           break;
+                          case 3:
                             spriteBatch.Draw(_content.Load<Texture2D>("target3"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
-                            break;
-                            case 4:
+                           break;
+                          case 4:
                             spriteBatch.Draw(_content.Load<Texture2D>("target5"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
-                            break;
+                           break;
 
                     }
                         
