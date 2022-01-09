@@ -40,7 +40,9 @@ namespace Polawiacz_gra.States
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            
+            //tlo
+            spriteBatch.Draw(_content.Load<Texture2D>("tlozasady"), new Vector2(0, 0), Color.White);
+
             foreach (var component in _components)
                 component.Draw(gameTime, spriteBatch);
       
