@@ -199,25 +199,25 @@ namespace Polawiacz_gra.States
             {
                 for (int i = 0; i < iloscsmieci; i++)
                 {
-                    if (kierunek[i] == 0)
+                   
+                    pozycja[i].X = pozycja[i].X + ruchceluX[i];
+                    pozycja[i].Y = pozycja[i].Y + ruchceluY[i];
+                    if  (pozycja[i].X < 100)
                     {
-                        pozycja[i].X = pozycja[i].X - ruchceluX[i];
-                        pozycja[i].Y = pozycja[i].Y - ruchceluY[i];
-                        if (pozycja[i].X < 100 || pozycja[i].Y < 100 || pozycja[i].X > 1190 || pozycja[i].Y > 820)
-                        {
-                            kierunek[i] = 1;
-                        }
+                        ruchceluX[i] = -ruchceluX[i];
                     }
-                    if (kierunek[i] == 1)
+                    if (pozycja[i].X > 1190)
                     {
-                        pozycja[i].X = pozycja[i].X + ruchceluX[i];
-                        pozycja[i].Y = pozycja[i].Y + ruchceluY[i];
-                        if (pozycja[i].X < 100 || pozycja[i].Y < 100 || pozycja[i].X > 1190 || pozycja[i].Y > 820)
-                        {
-                            kierunek[i] = 0;
-                        }
+                        ruchceluX[i] = -ruchceluX[i];
                     }
-
+                    if (pozycja[i].Y < 100)
+                    {
+                        ruchceluY[i] = -ruchceluY[i];
+                    }
+                    if (pozycja[i].Y > 820)
+                    {
+                        ruchceluY[i] = -ruchceluY[i];
+                    }
                 }
             }
 
