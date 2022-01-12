@@ -21,35 +21,38 @@ namespace Polawiacz_gra.States
             var crosshairsSprite = content.Load<Texture2D>("crosshairs");
             var backgroundSprite = content.Load<Texture2D>("tlo");
             var gameFont = content.Load<SpriteFont>("galleryFont");
+            //tworzenie przyciskow
             var level1GameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(1280 / 2 - 424 / 2, 200),
-                Text = "1",
+                Tekst = "1",
             };
+            //odwloanie do eventu ktory ma sie wykonac po wcisniecu przycisku
             level1GameButton.Click += NewGameButton_Click;
 
             var level2GameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(1280 / 2 - 424 / 2, 300),
-                Text = "2",
+                Tekst = "2",
             };
             level2GameButton.Click += LoadGameButton_Click;
 
             var level3GameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(1280 / 2 - 424 / 2, 400),
-                Text = "3",
+                Tekst = "3",
             };
             level3GameButton.Click += QuitGameButton_Click;
 
             var menuGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(1280 / 2 - 424 / 2, 500),
-                Text = "Menu",
+                Tekst = "Menu",
             };
 
             menuGameButton.Click += MenuGameButton_Click;
 
+            //lista przyciskow
 
             _components = new List<Component>()
             {
@@ -59,7 +62,7 @@ namespace Polawiacz_gra.States
                 menuGameButton,
             };
         }
-
+        //funkce ktore wykonuja przyciski
         private void MenuGameButton_Click(object sender, EventArgs e)
         {
             _game.ChanegeState(new MenuState(_game, _graphicsDevice, _content));

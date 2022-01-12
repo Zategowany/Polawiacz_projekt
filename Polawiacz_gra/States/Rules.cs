@@ -22,7 +22,7 @@ namespace Polawiacz_gra.States
 
             {
                 Position = new Vector2(1280 / 2 - 424 / 2, 800),
-                Text = "Menu",
+                Tekst = "Menu",
             };
 
             menuGameButton.Click += MenuGameButton_Click;

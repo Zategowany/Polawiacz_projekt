@@ -12,31 +12,46 @@ namespace Polawiacz_gra.States
     public class GameState3 : State
     {
 
+        // vektor dla pozycji myszy
         private Vector2 pozycjaKursora;
 
         //pozycja celu
         Vector2[] pozycja = new Vector2[iloscsmieci];
         //odleglosc kursora od danego celu
         float[] odleglosc = new float[iloscsmieci];
-
-        const int targetRadius = 45;
+        //promien celu
+        const int promienCelu = 45;
+        //promien kursora
         const int promienKursora = 25;
-        const int iloscsmieci = 13;
+        //zmienna ktora decyduje o tym ile smieci sie pojawi na ekranie
+        const int iloscsmieci = 15;
+        //lista przyciskow
         private List<Component> _components;
-
+        //zmieranie danych z myszy
         MouseState mState;
         bool mReleased = true;
-        int trash = 0;
+        //dana do liczenia aktualnej ilosci smieci w grze
+        int smieci = 0;
+        //czas
         double timer = 0;
+        //zmienna do zliczania klikniec w zle obiekty
         int zlewybory = 0;
+        //tablica do pozakywania celow
         int[] numercelu = new int[iloscsmieci];
+        //tablica do prtzechowywania jaki rodzaj celu ma sie wyswietlac
         int[] wybortargetu = new int[iloscsmieci];
+        // pozwala wylosowac pozycje
+        int losowanie = 1;
+        //zapisywanie wyniku
+        float wynik;
+        //tablica do wylosowania ruchu na osi x
         int[] ruchceluX = new int[iloscsmieci];
+        //tablica do wylosowania ruchu na osi x
         int[] ruchceluY = new int[iloscsmieci];
+        //tablica do wylosowania kierunku ruchu
         int[] kierunek = new int[iloscsmieci];
 
-        int losowanie = 1;
-        float wynik;
+
 
 
         public GameState3(Game1 game, GraphicsDevice graphicDevice, ContentManager content) : base(game, graphicDevice, content)
@@ -51,12 +66,13 @@ namespace Polawiacz_gra.States
             var backgroundSprite = content.Load<Texture2D>("tlo");
             var gameFont = content.Load<SpriteFont>("galleryFont");
 
+            //tworzenie przyciskow
             var menuGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(1280 / 2 - 424 / 2, 700),
-                Text = "Menu",
+                Tekst = "Menu",
             };
-
+            //odwloanie do eventu ktory ma sie wykonac po wcisniecu przycisku
             menuGameButton.Click += MenuGameButton_Click;
 
             var menuingameGameButton = new Button(buttoningameTexture, buttonFont)
@@ -70,10 +86,12 @@ namespace Polawiacz_gra.States
             var restartGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(1280 / 2 - 424 / 2, 600),
-                Text = "Restart",
+                Tekst = "Restart",
             };
 
             restartGameButton.Click += RestartGameButton_Click;
+
+            //lista przyciskow
             _components = new List<Component>()
             {
 
@@ -84,7 +102,7 @@ namespace Polawiacz_gra.States
 
 
         }
-
+        //funkcje ktore wykonuja przyciski
         private void RestartGameButton_Click(object sender, EventArgs e)
         {
             _game.ChanegeState(new GameState3(_game, _graphicsDevice, _content));
@@ -104,7 +122,7 @@ namespace Polawiacz_gra.States
         public override void Update(GameTime gameTime)
         {
 
-
+            // na poczatku gry pokazanie wszystkich smieci pozniej numercelu jest zmieniany na 0 przez co nie jest generowany
             if (timer == 0)
             {
                 for (int i = 0; i < iloscsmieci; i++)
@@ -116,23 +134,23 @@ namespace Polawiacz_gra.States
 
 
             //czas zliczany do zebrania wszystkich smieci
-            if (trash > 0)
+            if (smieci > 0)
             {
                 timer += gameTime.ElapsedGameTime.TotalSeconds;
             }
-            if (trash < 0)
+            if (smieci < 0)
             {
-                trash = 0;
+                smieci = 0;
             }
 
 
-
+            //aktualna pozycja kursora
 
             mState = Mouse.GetState();
 
             pozycjaKursora = new Vector2(mState.X, mState.Y);
 
-            //petla sie wykonuje tylko raz na poczatku gry
+            //petla sie wykonuje tylko raz na poczatku gry i zapewnia wylosowanie pozycji na ktorej nic nie ma
 
             if (losowanie == 1)
             {
@@ -143,10 +161,10 @@ namespace Polawiacz_gra.States
                 //losowanie pozycji w okienku gry
                 for (int i = 0; i < iloscsmieci; i++)
                 {
-                    pozycja[i].X = rand.Next(100, 1250 - targetRadius);
-                    pozycja[i].Y = rand.Next(100, 850 - targetRadius);
+                    pozycja[i].X = rand.Next(100, 1250 - promienCelu);
+                    pozycja[i].Y = rand.Next(100, 850 - promienCelu);
                     //minimalizacja generacji obiektow na sobie
-                    int minimalnaodleglosc = targetRadius * 3;
+                    int minimalnaodleglosc = promienCelu * 3;
                     for (int k = 0; k < 4; k++)
                     {
                         for (int j = 0; j < iloscsmieci; j++)
@@ -155,8 +173,8 @@ namespace Polawiacz_gra.States
                             {
                                 while (Vector2.Distance(pozycja[i], pozycja[j]) < minimalnaodleglosc)
                                 {
-                                    pozycja[i].X = rand.Next(100, 1220 - targetRadius);
-                                    pozycja[i].Y = rand.Next(100, 850 - targetRadius);
+                                    pozycja[i].X = rand.Next(100, 1220 - promienCelu);
+                                    pozycja[i].Y = rand.Next(100, 850 - promienCelu);
                                 }
                             }
 
@@ -167,6 +185,7 @@ namespace Polawiacz_gra.States
                     {
                         wybortargetu[i] = rand.Next(0, 3);
                     }
+                    //ograniczenie ilosci celow w ktore nie chcemy klikac
                     if (warunek == false)
                     {
                         wybortargetu[i] = rand.Next(0, 5);
@@ -188,14 +207,14 @@ namespace Polawiacz_gra.States
                     //dodawanie smieci jesli wybierzez obrazek ze smieciem
                     if (wybortargetu[i] == 0 || wybortargetu[i] == 1 || wybortargetu[i] == 2)
                             {
-                                trash++;
+                                smieci++;
                             }
                         
                 }
                 losowanie = 0;
             }
-            //ruch obiektow
-            if (trash != 0)
+            //ruch obiektow i zmiana kierunku by nie wychodzily za ekran
+            if (smieci != 0)
             {
                 for (int i = 0; i < iloscsmieci; i++)
                 {
@@ -221,6 +240,7 @@ namespace Polawiacz_gra.States
                 }
             }
 
+            // //akcje ktore sie dzieja po kliknieciu w dany cel
             if (mState.LeftButton == ButtonState.Pressed && mReleased == true)
             {
 
@@ -228,12 +248,12 @@ namespace Polawiacz_gra.States
                 for (int i = 0; i < iloscsmieci; i++)
                 {
                     odleglosc[i] = Vector2.Distance(pozycja[i], mState.Position.ToVector2());
-                    if (odleglosc[i] < targetRadius && trash > 0)
+                    if (odleglosc[i] < promienCelu && smieci > 0)
                     {
                         //wybieranie czegos innego niz smieci nie odejmuje ilosci smieci
                         if (wybortargetu[i] == 0 || wybortargetu[i] == 1 || wybortargetu[i] == 2)
                         {
-                            trash--;
+                            smieci--;
                             pozycja[i].X = 3000;
                             pozycja[i].Y = 3000;
                         }
@@ -242,7 +262,7 @@ namespace Polawiacz_gra.States
                         {
                             zlewybory++;
                         }
-
+                        //przestanie rysowania danego celu
                         numercelu[i] = 0;
                     }
                 }
@@ -257,7 +277,7 @@ namespace Polawiacz_gra.States
             }
            
             //rysowanie przyciskow podczas gry jak i po zakonczeniu
-            if (trash == 0)
+            if (smieci == 0)
             {
 
                 wynik = (float)(1000 - timer * 10 - 100 * zlewybory);
@@ -270,7 +290,8 @@ namespace Polawiacz_gra.States
                     _components[i].Update(gameTime);
                 }
             }
-            if (trash != 0)
+            // jesli smieci jest wiecej niz 0 to wyswietla przycisk
+            if (smieci != 0)
             {
                 _components[2].Update(gameTime);
 
@@ -283,7 +304,7 @@ namespace Polawiacz_gra.States
         {
             //tlo
             spriteBatch.Draw(_content.Load<Texture2D>("tlo3v2"), new Vector2(0, 0), Color.White);
-            //jesli kliknalem na obrazek znika
+            //rysowanie celu na ekran jesli numercelu=1 i rysowanie odpowiedniego rysunku dla danego celu
 
             for (int i = 0; i < iloscsmieci; i++)
             {
@@ -293,19 +314,19 @@ namespace Polawiacz_gra.States
                     switch (wybortargetu[i])
                     {
                         case 0:
-                            spriteBatch.Draw(_content.Load<Texture2D>("target"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
+                            spriteBatch.Draw(_content.Load<Texture2D>("target"), new Vector2(pozycja[i].X - promienCelu, pozycja[i].Y - promienCelu), Color.White);
                             break;
                         case 1:
-                            spriteBatch.Draw(_content.Load<Texture2D>("target2"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
+                            spriteBatch.Draw(_content.Load<Texture2D>("target2"), new Vector2(pozycja[i].X - promienCelu, pozycja[i].Y - promienCelu), Color.White);
                             break;
                         case 2:
-                            spriteBatch.Draw(_content.Load<Texture2D>("target4"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
+                            spriteBatch.Draw(_content.Load<Texture2D>("target4"), new Vector2(pozycja[i].X - promienCelu, pozycja[i].Y - promienCelu), Color.White);
                             break;
                         case 3:
-                            spriteBatch.Draw(_content.Load<Texture2D>("target3"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
+                            spriteBatch.Draw(_content.Load<Texture2D>("target3"), new Vector2(pozycja[i].X - promienCelu, pozycja[i].Y - promienCelu), Color.White);
                             break;
                         case 4:
-                            spriteBatch.Draw(_content.Load<Texture2D>("target5"), new Vector2(pozycja[i].X - targetRadius, pozycja[i].Y - targetRadius), Color.White);
+                            spriteBatch.Draw(_content.Load<Texture2D>("target5"), new Vector2(pozycja[i].X - promienCelu, pozycja[i].Y - promienCelu), Color.White);
                             break;
 
                     }
@@ -313,7 +334,7 @@ namespace Polawiacz_gra.States
                 }
             }
             //wyswietrlanie przycisku menu podczas gry
-            if (trash != 0)
+            if (smieci != 0)
             {
                 _components[2].Draw(gameTime, spriteBatch);
 
@@ -325,9 +346,9 @@ namespace Polawiacz_gra.States
 
             spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Czas: " + Math.Ceiling(timer).ToString(), new Vector2(0, 30), Color.Red);
             //wynik
-            spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Pozostale smieci: " + trash.ToString(), new Vector2(0, 0), Color.White);
+            spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Pozostale smieci: " + smieci.ToString(), new Vector2(0, 0), Color.White);
             //Zebranie wszystkiego
-            if (trash == 0)
+            if (smieci == 0)
             {
                 spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Zebrales wszystko!!!! Twoj wynik to: " + Math.Ceiling(wynik).ToString() + "\n       Dokonales " + zlewybory.ToString() + " zly(ch) wybor(ow).", new Vector2(400, 0), Color.Black);
                 for (int i = 0; i < 2; i++)
