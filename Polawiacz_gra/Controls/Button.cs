@@ -10,7 +10,7 @@ namespace Polawiacz_gra.Controls
     public class Button : Component
     {
 
-        #region Fields
+        
 
         private MouseState _currentMouse; //po to by wykrywac lewy przycisk myszy
         private SpriteFont _font; //font tekstu
@@ -18,9 +18,7 @@ namespace Polawiacz_gra.Controls
         private MouseState _previousMouse; //poprzedni stan myszy
         private Texture2D _texture; //obrazek przycisku
 
-        #endregion
-
-        #region Properties
+       
 
         public event EventHandler Click;
         public bool Clicked { get; private set; }
@@ -36,9 +34,9 @@ namespace Polawiacz_gra.Controls
 
         public string Text { get; set; }
 
-        #endregion
+       
 
-        #region Methods
+       
 
         public Button(Texture2D texture, SpriteFont font)
         {
@@ -89,6 +87,6 @@ namespace Polawiacz_gra.Controls
                 }
             }
         }
-        #endregion
+        
     }
 }
