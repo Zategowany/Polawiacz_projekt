@@ -260,7 +260,11 @@ namespace Polawiacz_gra.States
             if (trash == 0)
             {
 
-                wynik = (float)(1000 / timer);
+                wynik = (float)(1000 - timer * 10 - 100 * zlewybory);
+                if (wynik < 0)
+                {
+                    wynik = 0;
+                }
                 for (int i = 0; i < 2; i++)
                 {
                     _components[i].Update(gameTime);
@@ -325,7 +329,7 @@ namespace Polawiacz_gra.States
             //Zebranie wszystkiego
             if (trash == 0)
             {
-                spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Zebrales wszystko!!!! Twoj wynik to: " + Math.Ceiling(wynik).ToString() + "\n Dokonales " + zlewybory.ToString() + " zlych wyborow.", new Vector2(400, 200), Color.White);
+                spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Zebrales wszystko!!!! Twoj wynik to: " + Math.Ceiling(wynik).ToString() + "\n       Dokonales " + zlewybory.ToString() + " zly(ch) wybor(ow).", new Vector2(400, 0), Color.Black);
                 for (int i = 0; i < 2; i++)
                 {
                     _components[i].Draw(gameTime, spriteBatch);

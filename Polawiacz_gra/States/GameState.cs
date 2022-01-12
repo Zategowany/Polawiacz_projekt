@@ -243,7 +243,7 @@ namespace Polawiacz_gra.States
 
             if (trash == 0)
             {
-                spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Zebrales wszystko!!!! Twoj wynik to: " + Math.Ceiling(wynik).ToString(), new Vector2(400, 200), Color.White);
+                spriteBatch.DrawString(_content.Load<SpriteFont>("galleryFont"), "Zebrales wszystko!!!! Twoj wynik to: " + Math.Ceiling(wynik).ToString(), new Vector2(400, 0), Color.Black);
                 for (int i = 0; i < 3; i++)
                 {
                     _components[i].Draw(gameTime, spriteBatch);
