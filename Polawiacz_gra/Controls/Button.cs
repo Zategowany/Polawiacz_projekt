@@ -34,9 +34,7 @@ namespace Polawiacz_gra.Controls
 
         public string Text { get; set; }
 
-       
-
-       
+     
 
         public Button(Texture2D texture, SpriteFont font)
         {

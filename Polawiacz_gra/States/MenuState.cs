@@ -23,7 +23,7 @@ namespace Polawiacz_gra.States
             var gameFont = content.Load<SpriteFont>("galleryFont");
             var newGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(400, 200),
+                Position = new Vector2(1280/2 -424/2, 200),
                 Text = "Nowa Gra",
             };
 
@@ -31,7 +31,7 @@ namespace Polawiacz_gra.States
 
             var levelsGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(400, 300),
+                Position = new Vector2(1280/2 - 424/2, 300),
                 Text = "Poziomy",
             };
 
@@ -39,7 +39,7 @@ namespace Polawiacz_gra.States
 
             var quitGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(400, 500),
+                Position = new Vector2(1280/2 - 424/2, 500),
                 Text = "Wyjdz z Gry",
             };
 
@@ -47,7 +47,7 @@ namespace Polawiacz_gra.States
 
             var rulesGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(400, 400),
+                Position = new Vector2(1280/2 - 424/2, 400),
                 Text = "Zasady",
             };
 

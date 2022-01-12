@@ -46,7 +46,7 @@ namespace Polawiacz_gra.States
 
             var menuGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(400, 700),
+                Position = new Vector2(1280 / 2 - 424 / 2, 700),
                 Text = "Menu",
             };
             menuGameButton.Click += MenuGameButton_Click;
@@ -61,7 +61,7 @@ namespace Polawiacz_gra.States
 
             var nextlevelGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(400, 600),
+                Position = new Vector2(1280 / 2 - 424 / 2, 600),
                 Text = "Nastepny Poziom",
             };
 
@@ -69,7 +69,7 @@ namespace Polawiacz_gra.States
 
             var restartGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(400, 500),
+                Position = new Vector2(1280 / 2 - 424 / 2, 500),
                 Text = "Restart",
             };
 

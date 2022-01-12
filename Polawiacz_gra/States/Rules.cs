@@ -21,7 +21,7 @@ namespace Polawiacz_gra.States
             var menuGameButton = new Button(buttonTexture, buttonFont)
 
             {
-                Position = new Vector2(400, 800),
+                Position = new Vector2(1280 / 2 - 424 / 2, 800),
                 Text = "Menu",
             };
 

@@ -23,28 +23,28 @@ namespace Polawiacz_gra.States
             var gameFont = content.Load<SpriteFont>("galleryFont");
             var level1GameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(400, 200),
+                Position = new Vector2(1280 / 2 - 424 / 2, 200),
                 Text = "1",
             };
             level1GameButton.Click += NewGameButton_Click;
 
             var level2GameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(400, 300),
+                Position = new Vector2(1280 / 2 - 424 / 2, 300),
                 Text = "2",
             };
             level2GameButton.Click += LoadGameButton_Click;
 
             var level3GameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(400, 400),
+                Position = new Vector2(1280 / 2 - 424 / 2, 400),
                 Text = "3",
             };
             level3GameButton.Click += QuitGameButton_Click;
 
             var menuGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(400, 500),
+                Position = new Vector2(1280 / 2 - 424 / 2, 500),
                 Text = "Menu",
             };
 
