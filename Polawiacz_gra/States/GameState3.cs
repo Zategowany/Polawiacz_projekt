@@ -261,6 +261,8 @@ namespace Polawiacz_gra.States
                         if (wybortargetu[i] == 3 || wybortargetu[i] == 4)
                         {
                             zlewybory++;
+                            pozycja[i].X = 3000;
+                            pozycja[i].Y = 3000;
                         }
                         //przestanie rysowania danego celu
                         numercelu[i] = 0;
