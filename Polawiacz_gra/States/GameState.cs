@@ -41,8 +41,13 @@ namespace Polawiacz_gra.States
         int losowanie = 0;
         // zmienna na wynik
         float wynik;
-        
-        
+
+        /// <summary>
+        /// wgrywanie wszystkich tekstur i przyciskow
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="graphicDevice"></param>
+        /// <param name="content"></param>
         public GameState(Game1 game, GraphicsDevice graphicDevice, ContentManager content) : base(game, graphicDevice, content)
         {
             
@@ -100,7 +105,11 @@ namespace Polawiacz_gra.States
 
 
         }
-
+        /// <summary>
+        /// funkcje przyciskow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         //akcje ktore sie dzieja po przycisnieciu przyciskow
         private void NextlevelGameButton_Click(object sender, EventArgs e)
         {
@@ -122,6 +131,10 @@ namespace Polawiacz_gra.States
             
         }
 
+        /// <summary>
+        /// rozmieszca wszystkie obiekty po planszy gry oraz odpowiada za to czy dany elemnt zostal klikniety, po czym je ukrywa jest tu zliczony wynik jak i czas oraz kontroluje to czy dany element nie generuje sie na innym elemencie
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
            
@@ -238,6 +251,11 @@ namespace Polawiacz_gra.States
 
 
         }
+        /// <summary>
+        /// rysuje odpowiednie obrazki jako cele i wyswietla wynik z czasem itp.
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="spriteBatch"></param>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             //tlo

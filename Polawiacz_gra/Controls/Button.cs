@@ -46,7 +46,11 @@ namespace Polawiacz_gra.Controls
             KolorTekstu = Color.Black;
         }
 
-        
+        /// <summary>
+        /// wypisywanie tekstu w przycisku
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="spriteBatch"></param>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             var kolor = Color.White;
@@ -67,7 +71,10 @@ namespace Polawiacz_gra.Controls
                 spriteBatch.DrawString(_font, Tekst, new Vector2(x, y), KolorTekstu);
             }
         }
-
+        /// <summary>
+        /// sprawdzanie czy dany przycisk zostal najaechany myszka i klikniety
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             //stany myszy

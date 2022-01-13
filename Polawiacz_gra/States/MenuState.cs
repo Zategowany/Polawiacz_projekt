@@ -8,11 +8,17 @@ using System.Text;
 
 namespace Polawiacz_gra.States
 {
+
     public class MenuState : State
     {
 
         private List<Component> _components;
-
+        /// <summary>
+        /// wgrywanie tekstur i przyciskow
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="graphicDevice"></param>
+        /// <param name="content"></param>
         public MenuState(Game1 game, GraphicsDevice graphicDevice, ContentManager content) : base(game, graphicDevice, content)
         {
            
@@ -66,6 +72,11 @@ namespace Polawiacz_gra.States
                 rulesGameButton,
             };
         }
+        /// <summary>
+        /// funkcje przyciskow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         //funkcje ktore wykonuja przyciski
         private void RulesGameButton_Click(object sender, EventArgs e)
         {
@@ -89,7 +100,11 @@ namespace Polawiacz_gra.States
             _game.ChanegeState(new GameState(_game, _graphicsDevice, _content));
 
         }
-
+        /// <summary>
+        /// rysuje przyciski
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="spriteBatch"></param>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             
@@ -105,6 +120,10 @@ namespace Polawiacz_gra.States
             // usuwa sprity jesli nie sa potrzebne
         }
 
+        /// <summary>
+        /// aktualizuje przyciski
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             //uaktualnienie kazdego przycisku

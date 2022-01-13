@@ -12,7 +12,12 @@ namespace Polawiacz_gra.States
     {
 
         private List<Component> _components;
-
+        /// <summary>
+        /// tworzenie przycisku
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="graphicDevice"></param>
+        /// <param name="content"></param>
         public Rules(Game1 game, GraphicsDevice graphicDevice, ContentManager content) : base(game, graphicDevice, content)
         {
             var buttonTexture = content.Load<Texture2D>("Controls/Button");
@@ -37,7 +42,11 @@ namespace Polawiacz_gra.States
         {
             _game.ChanegeState(new MenuState(_game, _graphicsDevice, _content));
         }
-
+        /// <summary>
+        /// rysowanie przycisku i tla
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="spriteBatch"></param>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             //tlo
@@ -52,7 +61,10 @@ namespace Polawiacz_gra.States
         {
             // usuwa sprity jesli nie sa potrzebne
         }
-
+        /// <summary>
+        /// aktualizacja przycisku
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             foreach (var component in _components)

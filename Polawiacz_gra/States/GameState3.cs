@@ -53,7 +53,12 @@ namespace Polawiacz_gra.States
 
 
 
-
+        /// <summary>
+        /// wgrywanie wszystkich tekstur i przyciskow
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="graphicDevice"></param>
+        /// <param name="content"></param>
         public GameState3(Game1 game, GraphicsDevice graphicDevice, ContentManager content) : base(game, graphicDevice, content)
         {
 
@@ -103,6 +108,13 @@ namespace Polawiacz_gra.States
 
         }
         //funkcje ktore wykonuja przyciski
+
+        /// <summary>
+        /// funkcje przyciskow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //funkcje ktore wykonuja przyciski
         private void RestartGameButton_Click(object sender, EventArgs e)
         {
             _game.ChanegeState(new GameState3(_game, _graphicsDevice, _content));
@@ -119,6 +131,10 @@ namespace Polawiacz_gra.States
 
         }
 
+        /// <summary>
+        /// losowo rozmiesza obiekt na ekranie gry, wybiera ktory obrazek ma sie wswietlic, okresla który obrazek jest klikniety, losuje ruch obiektu, zlicza czas, aktualizuje przyciski
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
 
@@ -240,6 +256,8 @@ namespace Polawiacz_gra.States
                 }
             }
 
+            
+
             // //akcje ktore sie dzieja po kliknieciu w dany cel
             if (mState.LeftButton == ButtonState.Pressed && mReleased == true)
             {
@@ -302,6 +320,11 @@ namespace Polawiacz_gra.States
 
 
         }
+        /// <summary>
+        /// rysuje wszystkie obiekty wyswietlane na ekranie gry oraz przyciski jak i napisy oraz czas i wynik
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="spriteBatch"></param>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             //tlo

@@ -12,7 +12,12 @@ namespace Polawiacz_gra.States
     {
 
         private List<Component> _components;
-
+        /// <summary>
+        /// wgrywanie tekstur i przyciskow
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="graphicDevice"></param>
+        /// <param name="content"></param>
         public MenuLevels(Game1 game, GraphicsDevice graphicDevice, ContentManager content) : base(game, graphicDevice, content)
         {
             var buttonTexture = content.Load<Texture2D>("Controls/Button");
@@ -62,6 +67,12 @@ namespace Polawiacz_gra.States
                 menuGameButton,
             };
         }
+
+        /// <summary>
+        /// funkcje przyciskow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         //funkce ktore wykonuja przyciski
         private void MenuGameButton_Click(object sender, EventArgs e)
         {
@@ -84,7 +95,11 @@ namespace Polawiacz_gra.States
             _game.ChanegeState(new GameState(_game, _graphicsDevice, _content));
 
         }
-
+        /// <summary>
+        /// rysowanie przyciskow
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="spriteBatch"></param>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             //spriteBatch.Begin();
@@ -99,7 +114,10 @@ namespace Polawiacz_gra.States
         {
             // usuwa sprity jesli nie sa potrzebne
         }
-
+        /// <summary>
+        /// aktualizacja przyciskow
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             foreach (var component in _components)
