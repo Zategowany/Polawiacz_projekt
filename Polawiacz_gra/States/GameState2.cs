@@ -11,39 +11,83 @@ namespace Polawiacz_gra.States
 {
     public class GameState2 : State
     {
+        /// <summary>
+        /// vektor dla pozycji myszy
+        /// </summary>
         // vektor dla pozycji myszy
         private Vector2 pozycjaKursora;
-
+        /// <summary>
+        /// pozycja celu
+        /// </summary>
         //pozycja celu
         Vector2[] pozycja = new Vector2[iloscsmieci];
+        /// <summary>
+        /// odleglosc kursora od danego celu
+        /// </summary>
         //odleglosc kursora od danego celu
         float[] odleglosc = new float[iloscsmieci];
-        //promien celu
+        /// <summary>
+        /// promien celu wykorzystywany do wysrodkowania klikniecia
+        /// </summary>
+        //promien celu wykorzystywany do wysrodkowania klikniecia
         const int promienCelu = 45;
-        //promien kursora
+        /// <summary>
+        /// promien kursora, do dokladnego klikanai srodkiem
+        /// </summary>
+        //promien kursora 
         const int promienKursora = 25;
+        /// <summary>
+        /// zmienna ktora decyduje o tym ile smieci sie pojawi na ekranie
+        /// </summary>
         //zmienna ktora decyduje o tym ile smieci sie pojawi na ekranie
         const int iloscsmieci = 15;
+        /// <summary>
+        /// lista przyciskow
+        /// </summary>
         //lista przyciskow
         private List<Component> _components;
-        //zmieranie danych z myszy
+        /// <summary>
+        /// zbieranie danych z myszy
+        /// </summary>
+        //zbieranie danych z myszy
         MouseState mState;
         bool mReleased = true;
+        /// <summary>
+        /// dana do liczenia aktualnej ilosci smieci w grze
+        /// </summary>
         //dana do liczenia aktualnej ilosci smieci w grze
         int smieci = 0;
+        /// <summary>
+        /// czas
+        /// </summary>
         //czas
         double timer = 0;
+        /// <summary>
+        /// zmienna do zliczania klikniec w zle obiekty
+        /// </summary>
         //zmienna do zliczania klikniec w zle obiekty
-        int zlewybory =0;
+        int zlewybory = 0;
+        /// <summary>
+        /// tablica do pozakywania celow
+        /// </summary>
         //tablica do pozakywania celow
         int[] numercelu = new int[iloscsmieci];
+        /// <summary>
+        /// tablica do prtzechowywania jaki rodzaj celu ma sie wyswietlac
+        /// </summary>
         //tablica do prtzechowywania jaki rodzaj celu ma sie wyswietlac
         int[] wybortargetu = new int[iloscsmieci];
+        /// <summary>
+        /// pozwala wylosowac pozycje
+        /// </summary>
         // pozwala wylosowac pozycje
         int losowanie = 1;
-        //zapisywanie wyniku
+        /// <summary>
+        /// wypisanie wyniku
+        /// </summary>
+        //wypisywanie wyniku
         float wynik;
-
+        
         /// <summary>
         /// wgrywanie wszystkich tekstur i przyciskow
         /// </summary>

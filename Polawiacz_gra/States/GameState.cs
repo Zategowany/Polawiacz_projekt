@@ -11,38 +11,80 @@ namespace Polawiacz_gra.States
 {
     public class GameState : State
     {
-        
-        private Vector2 pozycjaKursora;
-                             
-        //pozycja celu
-        Vector2[] pozycja = new Vector2[liczbaSmieci];
-        //odleglosc kursora od danego celu
-        float[] odleglosc = new float[liczbaSmieci];
-
-        //spromien celu 
-        const int promienCelu = 45;
-        //promien kursora
-        const int promienKursora = 25;
-        //tworzenie listy przyciskow
-        private List<Component> _components;
-
-        MouseState mState;
-        // czy przycisk myszy zostal odcisniety
-        bool mReleased = true;
-        // liczba smieci ktore sie beda generowac na ekranie 
-        static int liczbaSmieci =12;
-        //zmienna do trzymanai informacji ile smieci pozostalo w grze
-        int smieci = 0;
-        //zmienna do obliczania czasu
-        double timer = 0;
-        // pokazywanie celu
-        int[] numercelu = new int[liczbaSmieci];
-        // pozwala losowac pozycje celu
-        int losowanie = 0;
-        // zmienna na wynik
-        float wynik;
 
         /// <summary>
+        /// vektor dla pozycji myszy
+        /// </summary>
+        // vektor dla pozycji myszy
+        private Vector2 pozycjaKursora;
+        /// <summary>
+        /// pozycja celu
+        /// </summary>
+        //pozycja celu
+        Vector2[] pozycja = new Vector2[iloscsmieci];
+        /// <summary>
+        /// odleglosc kursora od danego celu
+        /// </summary>
+        //odleglosc kursora od danego celu
+        float[] odleglosc = new float[iloscsmieci];
+        /// <summary>
+        /// promien celu wykorzystywany do wysrodkowania klikniecia
+        /// </summary>
+        //promien celu wykorzystywany do wysrodkowania klikniecia
+        const int promienCelu = 45;
+        /// <summary>
+        /// promien kursora, do dokladnego klikanai srodkiem
+        /// </summary>
+        //promien kursora 
+        const int promienKursora = 25;
+        /// <summary>
+        /// zmienna ktora decyduje o tym ile smieci sie pojawi na ekranie
+        /// </summary>
+        //zmienna ktora decyduje o tym ile smieci sie pojawi na ekranie
+        const int iloscsmieci = 12;
+        /// <summary>
+        /// lista przyciskow
+        /// </summary>
+        //lista przyciskow
+        private List<Component> _components;
+        /// <summary>
+        /// zbieranie danych z myszy
+        /// </summary>
+        //zbieranie danych z myszy
+        MouseState mState;
+        bool mReleased = true;
+        /// <summary>
+        /// dana do liczenia aktualnej ilosci smieci w grze
+        /// </summary>
+        //dana do liczenia aktualnej ilosci smieci w grze
+        int smieci = 0;
+        /// <summary>
+        /// czas
+        /// </summary>
+        //czas
+        double timer = 0;
+        
+        /// <summary>
+        /// tablica do pozakywania celow
+        /// </summary>
+        //tablica do pozakywania celow
+        int[] numercelu = new int[iloscsmieci];
+        /// <summary>
+        /// tablica do prtzechowywania jaki rodzaj celu ma sie wyswietlac
+        /// </summary>
+        //tablica do prtzechowywania jaki rodzaj celu ma sie wyswietlac
+        int[] wybortargetu = new int[iloscsmieci];
+        /// <summary>
+        /// pozwala wylosowac pozycje
+        /// </summary>
+        // pozwala wylosowac pozycje
+        int losowanie = 1;
+        /// <summary>
+        /// wypisanie wyniku
+        /// </summary>
+        //wypisywanie wyniku
+        float wynik;
+        
         /// wgrywanie wszystkich tekstur i przyciskow
         /// </summary>
         /// <param name="game"></param>
@@ -141,7 +183,7 @@ namespace Polawiacz_gra.States
             // ustawienie na poczatku gry widocznosci celu jak i przejscia do losowania
             if (timer == 0)
             {
-                for (int i = 0; i < liczbaSmieci; i++)
+                for (int i = 0; i < iloscsmieci; i++)
                 {
                     numercelu[i] = 1;
                     losowanie = 1;
@@ -173,7 +215,7 @@ namespace Polawiacz_gra.States
                 Random rand = new Random();
 
                 //losowanie pozycji w okienku gry
-                for (int i = 0; i < liczbaSmieci; i++)
+                for (int i = 0; i < iloscsmieci; i++)
                 {
                     
                     pozycja[i].X = rand.Next(100, 1220 - promienCelu);
@@ -183,7 +225,7 @@ namespace Polawiacz_gra.States
                     int minimalnaodleglosc = promienCelu * 3;
                     for (int k = 0; k < 3; k++)
                     {
-                        for (int j = 0; j < liczbaSmieci; j++)
+                        for (int j = 0; j < iloscsmieci; j++)
                         {
                             if (i != j)
                             {
@@ -209,7 +251,7 @@ namespace Polawiacz_gra.States
             {
 
                 //sprawdzanie odleglosci od celu
-                for (int i = 0; i < liczbaSmieci; i++)
+                for (int i = 0; i < iloscsmieci; i++)
                 {
                     odleglosc[i] = Vector2.Distance(pozycja[i], mState.Position.ToVector2());
                     if (odleglosc[i] < promienCelu && smieci > 0)
@@ -262,7 +304,7 @@ namespace Polawiacz_gra.States
             spriteBatch.Draw(_content.Load<Texture2D>("tlo"), new Vector2(0, 0), Color.White);
             
             // jesli numer celu jest 1 to rysuje teksture jesli 0 to jej nie wyswietla
-            for (int i = 0; i < liczbaSmieci; i++)
+            for (int i = 0; i < iloscsmieci; i++)
             {
                 if (numercelu[i] == 1)
                 {
