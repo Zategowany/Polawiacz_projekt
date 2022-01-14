@@ -69,11 +69,7 @@ namespace Polawiacz_gra.States
         /// </summary>
         //tablica do pozakywania celow
         int[] numercelu = new int[iloscsmieci];
-        /// <summary>
-        /// tablica do prtzechowywania jaki rodzaj celu ma sie wyswietlac
-        /// </summary>
-        //tablica do prtzechowywania jaki rodzaj celu ma sie wyswietlac
-        int[] wybortargetu = new int[iloscsmieci];
+        
         /// <summary>
         /// pozwala wylosowac pozycje
         /// </summary>
